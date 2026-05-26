@@ -4,6 +4,7 @@ import { Nav } from "@/components/Nav";
 import { PickCard } from "@/components/PickCard";
 import { PicksTable } from "@/components/PicksTable";
 import { DailyIntelligenceFeed } from "@/components/DailyIntelligenceFeed";
+import { MobileConstructTabs } from "@/components/MobileConstructTabs";
 import { morningBriefing } from "@/data/daily-intelligence";
 import { alerts, mockPicks } from "@/data/mock-picks";
 import { demoInvestorProfile, getPersonalizedTopPicks } from "@/lib/personalization";
@@ -36,6 +37,12 @@ export default function DashboardPage() {
           </div>
         </section>
 
+        <MobileConstructTabs />
+
+        <section id="today">
+          <DailyIntelligenceFeed briefing={morningBriefing} />
+        </section>
+
         <section className="rounded-lg border border-line bg-white p-4 shadow-sm sm:p-5 dark:border-slate-800 dark:bg-slate-900">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
             <div>
@@ -60,9 +67,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        <DailyIntelligenceFeed briefing={morningBriefing} />
-
-        <section className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 xl:grid-cols-4">
+        <section id="pick" className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 xl:grid-cols-4">
           <div className="w-[84vw] shrink-0 snap-start md:w-auto">
           <PickCard title="Top Pick Today" pick={topPick} />
           </div>
@@ -77,7 +82,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        <section className="grid gap-4 lg:grid-cols-[1fr_380px]">
+        <section id="risk" className="grid gap-4 lg:grid-cols-[1fr_380px]">
           <article className="rounded-lg border border-line bg-white p-4 shadow-sm sm:p-5 dark:border-slate-800 dark:bg-slate-900">
             <div className="flex items-center gap-2">
               <TrendingUp className="text-growth dark:text-emerald-300" size={22} />
@@ -108,7 +113,17 @@ export default function DashboardPage() {
           </article>
         </section>
 
-        <PicksTable picks={picks} />
+        <section id="portfolio" className="rounded-lg border border-line bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-sm font-semibold text-signal dark:text-sky-300">Portfolio construct</p>
+          <h2 className="mt-1 text-2xl font-bold">Connect holdings to adapt the picks.</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            The portfolio layer should detect overlap, concentration, missing exposure, and whether a new pick improves balance.
+          </p>
+        </section>
+
+        <section id="learn">
+          <PicksTable picks={picks} />
+        </section>
         <Disclaimer />
       </main>
     </>
