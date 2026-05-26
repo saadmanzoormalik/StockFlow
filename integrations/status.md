@@ -14,7 +14,8 @@
 
 ## Scaffolded, Not Connected
 
-- Supabase database and auth
+- Supabase database persistence routes and migration
+- Supabase Auth
 - Stripe trial/subscription
 - Portfolio connection providers: Plaid, SnapTrade, Yodlee, MX
 - Market data providers: Alpha Vantage, FMP, Polygon, Finnhub
@@ -25,7 +26,7 @@
 ## Requires User Access
 
 - GitHub account/repo destination
-- Supabase project
+- Supabase project URL, anon key, and service role key
 - Stripe account
 - LangSmith workspace/API key
 - Portfolio provider sandbox account

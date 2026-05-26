@@ -80,6 +80,7 @@ See:
 
 - `integrations/status.md`
 - `docs/access-needed.md`
+- `docs/supabase-setup.md`
 - `docs/deployment.md`
 - `docs/evaluation-framework.md`
 - `docs/app-store-roadmap.md`
