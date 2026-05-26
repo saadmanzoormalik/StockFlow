@@ -19,6 +19,12 @@ Which stock should this retail investor review today?
 
 Browser/mobile UI -> Next.js API routes -> SQL database -> scoring model -> personalization layer -> agent rationale -> top stock pick -> user action -> learning event -> evaluation -> candidate model update.
 
+## Daily Engagement Loop
+
+Today feed -> top pick -> rationale -> portfolio insight -> news consensus -> risk check -> user save/dismiss/watch action -> learning event.
+
+The goal is a 5-15 minute daily session that blends action and knowledge without becoming a complex trading terminal.
+
 ## Agentic Roles
 
 - Risk Appetite Agent: infers risk comfort from onboarding answers.

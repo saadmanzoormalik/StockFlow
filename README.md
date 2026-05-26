@@ -25,6 +25,8 @@ Browser UI -> Next.js app/API routes -> mock SQL-ready data -> deterministic sco
 - Mobile-first card feeds, bottom navigation, thumb-friendly controls, and PWA metadata
 - Portfolio connection activation path with provider placeholders for Plaid, SnapTrade, Yodlee, and MX
 - Recursive learning loop endpoints and tables for saves, dismissals, portfolio connects, risk updates, and candidate model updates
+- Daily intelligence feed for 5-15 minute engagement: top pick, portfolio context, news consensus, risk checks, and learning signals
+- Capacitor native app scaffold for future App Store and Play Store builds
 
 ## Personalization Logic
 
@@ -84,6 +86,7 @@ See:
 - `docs/deployment.md`
 - `docs/evaluation-framework.md`
 - `docs/app-store-roadmap.md`
+- `docs/native-build.md`
 
 ## Compliance
 

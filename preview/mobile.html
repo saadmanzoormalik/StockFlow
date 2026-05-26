@@ -162,6 +162,12 @@
     .provider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
     .provider { border: 1px solid var(--line); border-radius: 16px; background: white; padding: 12px; }
     .provider span { display: inline-flex; margin-top: 8px; border-radius: 999px; background: var(--panel); padding: 5px 9px; color: var(--blue); font-size: 11px; font-weight: 900; }
+    .daily-item { display: block; margin-top: 10px; padding: 14px; text-decoration: none; color: inherit; }
+    .daily-item h3 { margin: 0; font-size: 16px; line-height: 1.2; }
+    .daily-item p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .action { border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; white-space: nowrap; }
+    .watch { background: #ebf8ff; color: #2b6cb0; }
+    .learn { background: #f1f5f9; color: #334155; }
     .disclaimer { margin-top: 16px; color: var(--muted); font-size: 11px; line-height: 1.5; }
     .bottom-nav {
       position: absolute;
@@ -263,6 +269,30 @@
               <div class="metric"><span>Timeline</span><strong>3-9 months</strong></div>
             </div>
             <div class="catalyst">Learning loop: saves, dismissals, and connected holdings tune future picks.</div>
+          </a>
+
+          <h2 class="section-title">Today’s 5-minute edge</h2>
+          <p class="sub">One feed for action, knowledge, and portfolio-aware alerts.</p>
+          <a class="card daily-item" href="#daily-vrt">
+            <div class="row">
+              <h3>Your top pick remains VRT</h3>
+              <span class="action watch">Watch</span>
+            </div>
+            <p>Personal score 87. Medium risk. 3-9 month timeline. The AI still likes cooling and power exposure for your sample profile.</p>
+          </a>
+          <a class="card daily-item" href="#daily-portfolio">
+            <div class="row">
+              <h3>You may already own enough AI compute</h3>
+              <span class="action learn">Learn</span>
+            </div>
+            <p>Sample holdings NVDA, MSFT, and QQQ suggest the app should look for adjacent infrastructure, not more mega-cap overlap.</p>
+          </a>
+          <a class="card daily-item" href="#daily-news">
+            <div class="row">
+              <h3>News consensus: power demand stays hot</h3>
+              <span class="action watch">Watch</span>
+            </div>
+            <p>Daily consensus turns research noise into one short read: catalyst, risk, and what changed since yesterday.</p>
           </a>
 
           <h2 class="section-title" id="trial">Connect your portfolio</h2>

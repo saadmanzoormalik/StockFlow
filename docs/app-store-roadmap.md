@@ -15,6 +15,7 @@ Start as a mobile-first PWA, then package native shells after core flows work.
 
 Use Capacitor when the web app is stable:
 
+- `capacitor.config.ts`
 - iOS shell
 - Android shell
 - native splash screen

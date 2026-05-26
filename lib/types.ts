@@ -88,6 +88,21 @@ export type LearningEvent = {
   weightAdjustment: number;
 };
 
+export type DailyAction = "Buy" | "Watch" | "Avoid" | "Trim" | "Learn";
+
+export type DailyIntelligenceItem = {
+  id: string;
+  title: string;
+  ticker?: string;
+  action: DailyAction;
+  category: "Top Pick" | "Portfolio" | "News Consensus" | "Risk" | "Learning";
+  summary: string;
+  whyItMatters: string;
+  timeToReadMinutes: number;
+  decisionKpi: string;
+  confidence: number;
+};
+
 export type RotationWindow = {
   window: string;
   theme: string;
