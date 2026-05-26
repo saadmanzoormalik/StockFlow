@@ -170,32 +170,32 @@
             <div class="question-card">
               <div class="question"><h3>1. What is your style?</h3><small>Strategy</small></div>
               <div class="options">
-                <span class="pill">Conservative</span>
-                <span class="pill active">Balanced</span>
-                <span class="pill">Aggressive</span>
+                <button class="pill" data-group="strategy">Conservative</button>
+                <button class="pill active" data-group="strategy">Balanced</button>
+                <button class="pill" data-group="strategy">Aggressive</button>
               </div>
             </div>
             <div class="question-card">
               <div class="question"><h3>2. How much volatility is okay?</h3><small>Risk</small></div>
               <div class="options">
-                <span class="pill">Low</span>
-                <span class="pill active">Medium</span>
-                <span class="pill">High</span>
+                <button class="pill" data-group="risk">Low</button>
+                <button class="pill active" data-group="risk">Medium</button>
+                <button class="pill" data-group="risk">High</button>
               </div>
             </div>
             <div class="question-card">
               <div class="question"><h3>3. What timeline do you prefer?</h3><small>Horizon</small></div>
               <div class="options">
-                <span class="pill">0-3 mo</span>
-                <span class="pill active">3-12 mo</span>
-                <span class="pill">12+ mo</span>
+                <button class="pill" data-group="timeline">0-3 mo</button>
+                <button class="pill active" data-group="timeline">3-12 mo</button>
+                <button class="pill" data-group="timeline">12+ mo</button>
               </div>
             </div>
             <div class="question-card">
               <div class="question"><h3>4. Connect portfolio?</h3><small>Optional</small></div>
               <div class="options">
-                <span class="pill active">Use sample</span>
-                <span class="pill">Connect</span>
+                <button class="pill active" data-group="portfolio">Use sample</button>
+                <button class="pill" data-group="portfolio">Connect</button>
               </div>
             </div>
 
@@ -206,20 +206,20 @@
                   <div class="ticker">VRT</div>
                   <p class="sub">Vertiv</p>
                 </div>
-                <div class="score"><small>Fit</small><strong>86</strong></div>
+                <div class="score"><small>Fit</small><strong id="fit-score">86</strong></div>
               </div>
-              <div class="badges"><span class="badge balanced">Balanced</span><span class="badge risk">Medium risk</span></div>
-              <p class="sub" style="margin-top:12px">AI likes cooling and power exposure for your sample profile, but marks it as Watch until a buy trigger appears.</p>
+              <div class="badges"><span class="badge balanced" id="strategy-badge">Balanced</span><span class="badge risk" id="risk-badge">Medium risk</span></div>
+              <p class="sub" id="outcome-copy" style="margin-top:12px">AI likes cooling and power exposure for your sample profile, but marks it as Watch until a buy trigger appears.</p>
             </div>
             <a class="cta" href="#today">Enter app</a>
           </section>
 
           <nav class="tabs">
-            <a class="tab active" href="#today">Today</a>
-            <a class="tab" href="#pick">Pick</a>
-            <a class="tab" href="#risk">Risk</a>
-            <a class="tab" href="#portfolio">Portfolio</a>
-            <a class="tab" href="#learn">Learn</a>
+            <a class="tab active" href="#today" data-tab="today">Today</a>
+            <a class="tab" href="#pick" data-tab="pick">Pick</a>
+            <a class="tab" href="#risk" data-tab="risk">Risk</a>
+            <a class="tab" href="#portfolio" data-tab="portfolio">Portfolio</a>
+            <a class="tab" href="#learn" data-tab="learn">Learn</a>
           </nav>
 
           <section class="section" id="today">
@@ -278,14 +278,49 @@
         </main>
       </div>
       <nav class="bottom-nav">
-        <a class="active" href="#today">⌂<span>Today</span></a>
-        <a href="#pick">◆<span>Pick</span></a>
-        <a href="#risk">◐<span>Risk</span></a>
-        <a href="#portfolio">▣<span>Portfolio</span></a>
-        <a href="#learn">↻<span>Learn</span></a>
+        <a class="active" href="#today" data-tab="today">⌂<span>Today</span></a>
+        <a href="#pick" data-tab="pick">◆<span>Pick</span></a>
+        <a href="#risk" data-tab="risk">◐<span>Risk</span></a>
+        <a href="#portfolio" data-tab="portfolio">▣<span>Portfolio</span></a>
+        <a href="#learn" data-tab="learn">↻<span>Learn</span></a>
       </nav>
     </div>
   </div>
   <div class="hint">Mobile app preview. Resize narrow or open on your phone for full-screen mode.</div>
+  <script>
+    const selected = {
+      strategy: "Balanced",
+      risk: "Medium",
+      timeline: "3-12 mo",
+      portfolio: "Use sample"
+    };
+
+    function updateOutcome() {
+      const fit = selected.strategy === "Aggressive" ? 82 : selected.strategy === "Conservative" ? 79 : 86;
+      const riskText = selected.risk === "High" ? "Higher risk" : selected.risk === "Low" ? "Lower risk" : "Medium risk";
+      const actionText = selected.risk === "High" ? "watch for breakout" : selected.risk === "Low" ? "wait for confirmation" : "watch";
+      document.getElementById("fit-score").textContent = fit;
+      document.getElementById("strategy-badge").textContent = selected.strategy;
+      document.getElementById("risk-badge").textContent = riskText;
+      document.getElementById("outcome-copy").textContent = `AI likes cooling and power exposure for your ${selected.strategy.toLowerCase()} profile, but marks it as ${actionText} until a buy trigger appears.`;
+    }
+
+    document.querySelectorAll(".pill[data-group]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const group = button.dataset.group;
+        selected[group] = button.textContent.trim();
+        document.querySelectorAll(`.pill[data-group="${group}"]`).forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        updateOutcome();
+      });
+    });
+
+    document.querySelectorAll("[data-tab]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const tab = link.dataset.tab;
+        document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
+      });
+    });
+  </script>
 </body>
 </html>
