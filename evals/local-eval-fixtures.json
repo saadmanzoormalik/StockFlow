@@ -1,0 +1,27 @@
+{
+  "benchmarkTargets": {
+    "topPickHasRationale": 1,
+    "disclaimerPresent": 1,
+    "personalizedScoreMinimum": 75,
+    "agentRationaleCount": 4,
+    "portfolioContextUsed": 1,
+    "riskFitExplained": 1
+  },
+  "demoRun": {
+    "ticker": "VRT",
+    "company": "Vertiv",
+    "personalizedScore": 87,
+    "disclaimer": "This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.",
+    "agentRationale": {
+      "strategyAgent": "Balanced upside fits the user's preferred strategy.",
+      "riskAgent": "Medium risk is acceptable for medium drawdown comfort.",
+      "portfolioAgent": "Adds cooling/power exposure to an AI compute-heavy portfolio.",
+      "learningAgent": "User saves and dismissals tune future ranking weights."
+    },
+    "personalizationReasons": [
+      "Balanced strategy fit",
+      "Medium risk fit",
+      "Portfolio diversification benefit"
+    ]
+  }
+}

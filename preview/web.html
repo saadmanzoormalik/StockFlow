@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Pick Check - Web Preview</title>
+  <style>
+    :root { --ink:#15202b; --line:#d9e2ec; --panel:#f7fafc; --muted:#5f6f7f; --green:#147d64; --blue:#2b6cb0; --amber:#b7791f; --red:#c53030; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--panel); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    header { position:sticky; top:0; z-index:5; border-bottom:1px solid var(--line); background:rgba(255,255,255,.96); backdrop-filter:blur(18px); }
+    .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
+    .top { display:flex; align-items:center; justify-content:space-between; min-height:72px; gap:24px; }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:900; }
+    .mark { display:grid; width:38px; height:38px; place-items:center; border-radius:9px; background:var(--ink); color:white; }
+    nav { display:flex; gap:6px; }
+    nav a { display:flex; align-items:center; height:44px; border-radius:10px; padding:0 14px; color:var(--muted); font-size:14px; font-weight:800; text-decoration:none; }
+    nav a.active, nav a:hover { background:var(--panel); color:var(--ink); }
+    main { padding:36px 0 46px; }
+    .hero { display:flex; align-items:end; justify-content:space-between; gap:28px; }
+    .eyebrow { color:var(--blue); font-size:14px; font-weight:900; }
+    h1 { margin:8px 0 10px; font-size:44px; line-height:1.05; letter-spacing:0; }
+    .sub { margin:0; max-width:720px; color:var(--muted); line-height:1.65; }
+    .market { min-width:260px; border:1px solid var(--line); border-radius:10px; background:white; padding:18px; }
+    .market span { color:var(--muted); font-size:14px; }
+    .market strong { display:block; margin-top:4px; color:var(--green); font-size:34px; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:28px; }
+    .card { border:1px solid var(--line); border-radius:10px; background:white; padding:18px; box-shadow:0 16px 40px rgba(21,32,43,.07); }
+    .row { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+    .label { color:var(--muted); font-size:14px; }
+    .ticker { margin-top:8px; font-size:32px; font-weight:900; line-height:1; }
+    .company { margin-top:4px; color:var(--muted); font-size:14px; }
+    .score { border-radius:9px; background:var(--panel); padding:8px 12px; text-align:right; }
+    .score small { display:block; color:var(--muted); font-size:11px; }
+    .score strong { color:var(--green); font-size:22px; }
+    .badge { display:inline-flex; border-radius:999px; padding:6px 9px; font-size:12px; font-weight:900; margin-right:6px; }
+    .balanced { background:#e6fffa; color:#0f766e; } .conservative { background:#ebf8ff; color:#2b6cb0; } .aggressive { background:#f3e8ff; color:#6b21a8; }
+    .risk-low { background:#ecfdf5; color:#047857; } .risk-mid { background:#fffbeb; color:#a16207; } .risk-high { background:#fef2f2; color:#b91c1c; }
+    .why { color:#334155; font-size:14px; line-height:1.55; }
+    .metrics { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+    .metric { border-radius:9px; background:var(--panel); padding:11px; font-size:13px; }
+    .metric span { display:block; color:var(--muted); font-size:12px; }
+    .metric strong { display:block; margin-top:4px; }
+    h2 { margin:34px 0 12px; font-size:28px; }
+    table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:10px; background:white; box-shadow:0 16px 40px rgba(21,32,43,.06); }
+    th { background:#eef4f8; color:var(--muted); font-size:12px; letter-spacing:.02em; text-transform:uppercase; }
+    th, td { border-bottom:1px solid var(--line); padding:14px; text-align:left; vertical-align:top; font-size:14px; }
+    td:first-child, td:nth-child(2) { font-weight:900; }
+    .split { display:grid; grid-template-columns:1fr 380px; gap:16px; margin-top:28px; }
+    .alert { margin-top:10px; border-radius:9px; background:var(--panel); padding:13px; }
+    .alert h3 { margin:0; font-size:15px; }
+    .alert p { margin:5px 0 0; color:var(--muted); font-size:13px; line-height:1.45; }
+    .disclaimer { margin-top:28px; border:1px solid var(--line); border-radius:10px; background:white; padding:14px; color:var(--muted); font-size:13px; }
+    @media (max-width: 880px) { .grid, .split { grid-template-columns:1fr; } .hero { align-items:stretch; flex-direction:column; } nav { display:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div class="logo"><div class="mark">SP</div><span>Stock Pick Check</span></div>
+      <nav>
+        <a class="active" href="web.html">Dashboard</a>
+        <a href="mobile.html">Mobile Preview</a>
+        <a href="#rotation">Rotation</a>
+        <a href="#performance">Performance</a>
+        <a href="#account">Account</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Your AI stock-picking setup</div>
+        <h1>Get your top stock pick for how you invest.</h1>
+        <p class="sub">Stock Pick Check helps everyday investors move from “what should I buy?” to a personalized top pick with risk fit, strategy fit, portfolio context, and clear AI rationale.</p>
+      </div>
+      <div class="market"><span>Personalized fit</span><strong>86%</strong></div>
+    </section>
+
+    <section class="grid">
+      <article class="card"><div class="row"><div><div class="label">Step 1</div><div class="ticker">Measure</div><div class="company">Risk appetite</div></div></div><p class="why">The app asks how much volatility, timeline, and upside the user is comfortable with.</p></article>
+      <article class="card"><div class="row"><div><div class="label">Step 2</div><div class="ticker">Adapt</div><div class="company">Strategy fit</div></div></div><p><span class="badge balanced">Balanced selected</span></p><p class="why">Rank ideas around Conservative, Balanced, or Aggressive preferences.</p></article>
+      <article class="card"><div class="row"><div><div class="label">Step 3</div><div class="ticker">Connect</div><div class="company">Portfolio context</div></div></div><p><span class="badge conservative">Plaid</span><span class="badge conservative">SnapTrade</span></p><p class="why">Future picks adapt to holdings, overlap, missing exposure, and concentration risk.</p></article>
+      <article class="card"><div class="row"><div><div class="label">Top pick</div><div class="ticker">VRT</div><div class="company">Vertiv</div></div><div class="score"><small>Personal</small><strong>87</strong></div></div><p><span class="badge balanced">AI matched</span><span class="badge risk-mid">Medium risk</span></p><p class="why">Strategy Agent, Risk Agent, and Portfolio Agent agree this is a strong personalized fit.</p><div class="metrics"><div class="metric"><span>Return</span><strong>12% to 28%</strong></div><div class="metric"><span>Timeline</span><strong>3-9 months</strong></div></div></article>
+    </section>
+
+    <div class="split">
+      <section class="card">
+        <h2 style="margin-top:0">Next Rotation Alert</h2>
+        <p class="label">Current hot area</p><strong>AI compute and AI networking</strong>
+        <p class="label">Likely next bottleneck</p><strong>Cooling, power, grid, and electricity generation</strong>
+        <p class="why">Rotation is one intelligence signal. The final recommendation is personalized by risk appetite, strategy preference, and portfolio context.</p>
+      </section>
+      <section class="card">
+        <h2 style="margin-top:0">Alerts</h2>
+        <div class="alert"><h3>Connect portfolio after trial starts</h3><p>Use Plaid, SnapTrade, Yodlee, or MX as the provider abstraction.</p></div>
+        <div class="alert"><h3>Personalize alerts by holdings</h3><p>Flag overlaps, missing exposure, and concentration risk.</p></div>
+      </section>
+    </div>
+
+    <section>
+      <h2>Ranked Stock Picks</h2>
+      <table>
+        <thead><tr><th>Rank</th><th>Ticker</th><th>Company</th><th>Strategy</th><th>Theme</th><th>Why It Was Picked</th><th>Return</th><th>Timeline</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td>#1</td><td>VRT</td><td>Vertiv</td><td>Balanced</td><td>Cooling/Power</td><td>Direct exposure to AI data-center cooling and power demand.</td><td>12% to 28%</td><td>3-9 months</td><td>Medium</td></tr>
+          <tr><td>#2</td><td>ETN</td><td>Eaton</td><td>Conservative</td><td>Grid/Electrical Infrastructure</td><td>Power equipment leader with direct exposure to electrification.</td><td>8% to 16%</td><td>6-12 months</td><td>Low</td></tr>
+          <tr><td>#3</td><td>CEG</td><td>Constellation Energy</td><td>Balanced</td><td>Electricity Generation</td><td>Baseload power becomes more valuable as AI data centers compete for supply.</td><td>10% to 24%</td><td>6-18 months</td><td>Medium</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</div>
+  </main>
+</body>
+</html>

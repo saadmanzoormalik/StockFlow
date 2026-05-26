@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Pick Check - Mobile Preview</title>
+  <style>
+    :root {
+      --ink: #15202b;
+      --line: #d9e2ec;
+      --panel: #f8fafc;
+      --muted: #5f6f7f;
+      --green: #147d64;
+      --blue: #2b6cb0;
+      --amber: #b7791f;
+      --red: #c53030;
+      --wash: #eef6f4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #edf3f7;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .stage {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 22px;
+    }
+    .phone {
+      position: relative;
+      width: min(420px, 100%);
+      height: min(860px, calc(100vh - 44px));
+      overflow: hidden;
+      border: 10px solid #101820;
+      border-radius: 36px;
+      background: var(--panel);
+      box-shadow: 0 28px 80px rgba(21, 32, 43, 0.24);
+    }
+    .app {
+      height: 100%;
+      overflow-y: auto;
+      padding-bottom: 90px;
+      background: var(--panel);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(18px);
+      padding: 12px 18px 10px;
+    }
+    .brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 9px; font-weight: 800; }
+    .mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 9px; background: var(--ink); color: white; }
+    .icon-btn { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: white; }
+    .tagline { margin-top: 6px; color: var(--muted); font-size: 12px; }
+    main { padding: 0 18px 8px; }
+    .hero-panel {
+      margin: 0 -18px;
+      min-height: 430px;
+      padding: 28px 18px 24px;
+      background:
+        radial-gradient(circle at 84% 12%, rgba(43, 108, 176, 0.16), transparent 28%),
+        linear-gradient(155deg, #f8fffd 0%, #ffffff 45%, #eef7fb 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 850; text-transform: uppercase; }
+    h1 { margin: 10px 0 10px; max-width: 360px; font-size: 42px; line-height: .98; letter-spacing: 0; }
+    p { line-height: 1.55; }
+    .sub { margin: 0; color: var(--muted); font-size: 14px; }
+    .hero-panel .sub { max-width: 340px; font-size: 15px; }
+    .score-card, .card {
+      border: 1px solid rgba(217, 226, 236, .9);
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 18px 42px rgba(21, 32, 43, 0.07);
+    }
+    .score-card { margin-top: 16px; padding: 16px; position: relative; }
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      margin-top: 16px;
+      border-radius: 14px;
+      background: var(--ink);
+      color: white;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .secondary-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      margin-top: 9px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      color: var(--ink);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      margin-top: 10px;
+      border: 1px solid rgba(217, 226, 236, .9);
+      border-radius: 16px;
+      background: white;
+      padding: 12px;
+    }
+    .step-num {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .step h3, .provider h3 { margin: 0; font-size: 15px; }
+    .step p, .provider p { margin: 4px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .ticker { margin-top: 6px; font-size: 30px; font-weight: 900; line-height: 1; }
+    .company { margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .score { border-radius: 9px; background: var(--panel); padding: 8px 11px; text-align: right; }
+    .score small { display: block; color: var(--muted); font-size: 11px; }
+    .score strong { color: var(--green); font-size: 22px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .badge { border-radius: 999px; padding: 6px 9px; font-size: 12px; font-weight: 800; }
+    .balanced { background: #e6fffa; color: #0f766e; }
+    .conservative { background: #ebf8ff; color: #2b6cb0; }
+    .aggressive { background: #f3e8ff; color: #6b21a8; }
+    .risk-low { background: #ecfdf5; color: #047857; }
+    .risk-mid { background: #fffbeb; color: #a16207; }
+    .risk-high { background: #fef2f2; color: #b91c1c; }
+    .why { margin: 13px 0 0; color: #334155; font-size: 14px; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 13px; }
+    .metric { border-radius: 9px; background: var(--panel); padding: 11px; font-size: 13px; }
+    .metric span { display: block; color: var(--muted); font-size: 12px; }
+    .metric strong { display: block; margin-top: 4px; }
+    .section-title { margin: 26px 0 10px; font-size: 22px; line-height: 1.1; }
+    .filter { display: flex; gap: 8px; overflow-x: auto; margin: 11px -16px 0; padding: 0 16px 4px; }
+    .filter button { height: 44px; white-space: nowrap; border: 1px solid var(--line); border-radius: 999px; background: white; padding: 0 16px; font-weight: 800; }
+    .filter .active { background: var(--ink); color: white; }
+    .pick { display: block; margin-top: 10px; padding: 14px; text-decoration: none; color: inherit; }
+    .rank { border-radius: 999px; background: var(--ink); color: white; padding: 5px 8px; font-size: 12px; font-weight: 900; }
+    .theme { margin-top: 12px; font-size: 14px; font-weight: 800; }
+    .catalyst { display: flex; gap: 8px; margin-top: 12px; border-radius: 9px; background: var(--panel); padding: 10px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .alert { margin-top: 10px; padding: 13px; }
+    .alert h3 { margin: 0; font-size: 15px; }
+    .alert p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .provider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .provider { border: 1px solid var(--line); border-radius: 16px; background: white; padding: 12px; }
+    .provider span { display: inline-flex; margin-top: 8px; border-radius: 999px; background: var(--panel); padding: 5px 9px; color: var(--blue); font-size: 11px; font-weight: 900; }
+    .disclaimer { margin-top: 16px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .bottom-nav {
+      position: absolute;
+      inset: auto 0 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 8px 12px;
+      backdrop-filter: blur(18px);
+    }
+    .bottom-nav a {
+      display: flex;
+      min-height: 54px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .bottom-nav .active { background: var(--panel); color: var(--ink); }
+    .hint {
+      position: fixed;
+      left: 22px;
+      bottom: 18px;
+      color: #334155;
+      font-size: 13px;
+    }
+    @media (max-width: 520px) {
+      .stage { padding: 0; }
+      .phone { width: 100%; height: 100vh; border: 0; border-radius: 0; }
+      .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="phone">
+      <div class="app">
+        <header>
+          <div class="brand">
+            <div class="logo"><div class="mark">SP</div><span>Stock Pick Check</span></div>
+            <div class="icon-btn">☾</div>
+          </div>
+          <div class="tagline">Personalized top stock picks</div>
+        </header>
+        <main>
+          <section class="hero-panel">
+            <div class="eyebrow">Your AI stock-picking setup</div>
+            <h1>Get your top stock pick for how you invest.</h1>
+            <p class="sub">Answer a few risk questions, connect your portfolio, and let the AI tailor picks around your goals.</p>
+            <a class="cta" href="#trial">Start Free Trial</a>
+            <a class="secondary-cta" href="#picks">See my personalized pick</a>
+          </section>
+
+          <section class="score-card" id="picks">
+            <div class="row">
+              <div>
+                <div class="sub">Personalized top pick</div>
+                <div class="ticker">VRT</div>
+                <div class="company">Vertiv</div>
+              </div>
+              <div class="score"><small>Fit</small><strong>86</strong></div>
+            </div>
+            <div class="badges"><span class="badge balanced">Balanced</span><span class="badge risk-mid">Medium risk</span></div>
+            <p class="why">The AI sees a balanced risk fit, AI-compute concentration in your sample portfolio, and stronger cooling/power demand.</p>
+            <div class="metrics">
+              <div class="metric"><span>Expected range</span><strong>12% to 28%</strong></div>
+              <div class="metric"><span>Timeline</span><strong>3-9 months</strong></div>
+            </div>
+          </section>
+
+          <h2 class="section-title">Measure your risk appetite</h2>
+          <p class="sub">Your answers change the ranking, not just the label.</p>
+          <div class="filter">
+            <button>Conservative</button>
+            <button class="active">Balanced</button>
+            <button>Aggressive</button>
+          </div>
+
+          <a class="card pick" href="#vrt">
+            <div class="row">
+              <div>
+                <div class="badges" style="margin-top:0"><span class="rank">#1</span><span class="badge balanced">AI matched</span></div>
+                <div class="ticker">VRT</div>
+                <div class="company">Vertiv</div>
+              </div>
+              <div class="score"><small>Personal</small><strong>87</strong></div>
+            </div>
+            <div class="theme">Why this is your pick</div>
+            <p class="why">Strategy Agent likes the balanced upside. Risk Agent accepts medium risk. Portfolio Agent says this diversifies AI compute exposure.</p>
+            <div class="metrics">
+              <div class="metric"><span>Return</span><strong>12% to 28%</strong></div>
+              <div class="metric"><span>Timeline</span><strong>3-9 months</strong></div>
+            </div>
+            <div class="catalyst">Learning loop: saves, dismissals, and connected holdings tune future picks.</div>
+          </a>
+
+          <h2 class="section-title" id="trial">Connect your portfolio</h2>
+          <p class="sub">Your holdings help the AI adapt picks, alerts, and risk warnings.</p>
+          <div class="provider-grid">
+            <div class="provider"><h3>Plaid</h3><p>Bank and brokerage connectivity</p><span>Connect</span></div>
+            <div class="provider"><h3>SnapTrade</h3><p>Brokerage holdings and account sync</p><span>Connect</span></div>
+          </div>
+          <a class="cta" href="mobile.html">Start 3-4 Day Free Trial</a>
+          <p class="sub" style="margin-top:8px">$29.99/month after trial. Cancel anytime.</p>
+
+          <p class="disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</p>
+        </main>
+      </div>
+      <nav class="bottom-nav">
+        <a class="active" href="mobile.html">⌂<span>Dashboard</span></a>
+        <a href="web.html">↗<span>Rotation</span></a>
+        <a href="web.html">▤<span>Performance</span></a>
+        <a href="web.html">◯<span>Account</span></a>
+      </nav>
+    </div>
+  </div>
+  <div class="hint">Mobile app preview. Resize narrow or open on your phone for full-screen mode.</div>
+</body>
+</html>
