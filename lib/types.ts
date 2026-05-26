@@ -98,9 +98,20 @@ export type DailyIntelligenceItem = {
   category: "Top Pick" | "Portfolio" | "News Consensus" | "Risk" | "Learning";
   summary: string;
   whyItMatters: string;
+  algorithmFactor: string;
+  missingSignal: string;
+  userDecision: string;
   timeToReadMinutes: number;
   decisionKpi: string;
   confidence: number;
+};
+
+export type MorningBriefing = {
+  notificationTitle: string;
+  notificationBody: string;
+  primaryDecision: string;
+  balanceRule: string;
+  items: DailyIntelligenceItem[];
 };
 
 export type RotationWindow = {

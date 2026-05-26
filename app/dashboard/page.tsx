@@ -4,7 +4,7 @@ import { Nav } from "@/components/Nav";
 import { PickCard } from "@/components/PickCard";
 import { PicksTable } from "@/components/PicksTable";
 import { DailyIntelligenceFeed } from "@/components/DailyIntelligenceFeed";
-import { dailyIntelligence } from "@/data/daily-intelligence";
+import { morningBriefing } from "@/data/daily-intelligence";
 import { alerts, mockPicks } from "@/data/mock-picks";
 import { demoInvestorProfile, getPersonalizedTopPicks } from "@/lib/personalization";
 import { getMarketRotationSignal, rankPicks } from "@/lib/scoring";
@@ -60,7 +60,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        <DailyIntelligenceFeed items={dailyIntelligence} />
+        <DailyIntelligenceFeed briefing={morningBriefing} />
 
         <section className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 xl:grid-cols-4">
           <div className="w-[84vw] shrink-0 snap-start md:w-auto">

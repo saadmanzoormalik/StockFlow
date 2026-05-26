@@ -165,6 +165,10 @@
     .daily-item { display: block; margin-top: 10px; padding: 14px; text-decoration: none; color: inherit; }
     .daily-item h3 { margin: 0; font-size: 16px; line-height: 1.2; }
     .daily-item p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .nudge { margin-top: 10px; border-radius: 18px; background: var(--ink); color: white; padding: 15px; }
+    .nudge small { color: #cbd5e1; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+    .nudge h3 { margin: 5px 0 0; font-size: 17px; }
+    .nudge p { margin: 7px 0 0; color: #e2e8f0; font-size: 13px; line-height: 1.5; }
     .action { border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; white-space: nowrap; }
     .watch { background: #ebf8ff; color: #2b6cb0; }
     .learn { background: #f1f5f9; color: #334155; }
@@ -271,28 +275,33 @@
             <div class="catalyst">Learning loop: saves, dismissals, and connected holdings tune future picks.</div>
           </a>
 
-          <h2 class="section-title">Today’s 5-minute edge</h2>
-          <p class="sub">One feed for action, knowledge, and portfolio-aware alerts.</p>
+          <h2 class="section-title">Morning decision briefing</h2>
+          <p class="sub">Should VRT stay on your watchlist today?</p>
+          <div class="nudge">
+            <small>Nudge notification</small>
+            <h3>Your market briefing is ready</h3>
+            <p>VRT still fits your profile. AI power demand strengthened, but no buy trigger yet.</p>
+          </div>
           <a class="card daily-item" href="#daily-vrt">
             <div class="row">
-              <h3>Your top pick remains VRT</h3>
+              <h3>Most important decision</h3>
               <span class="action watch">Watch</span>
             </div>
-            <p>Personal score 87. Medium risk. 3-9 month timeline. The AI still likes cooling and power exposure for your sample profile.</p>
+            <p>Model factor: bottleneck score plus portfolio diversification. Missing: confirmed buy trigger. Decision: keep VRT on today’s watchlist.</p>
           </a>
           <a class="card daily-item" href="#daily-portfolio">
             <div class="row">
-              <h3>You may already own enough AI compute</h3>
+              <h3>What may be missing</h3>
               <span class="action learn">Learn</span>
             </div>
-            <p>Sample holdings NVDA, MSFT, and QQQ suggest the app should look for adjacent infrastructure, not more mega-cap overlap.</p>
+            <p>Your sample portfolio is AI-compute heavy. Missing signal: live holdings sync. Decision: connect portfolio before acting.</p>
           </a>
           <a class="card daily-item" href="#daily-news">
             <div class="row">
-              <h3>News consensus: power demand stays hot</h3>
+              <h3>Where finance is leaning</h3>
               <span class="action watch">Watch</span>
             </div>
-            <p>Daily consensus turns research noise into one short read: catalyst, risk, and what changed since yesterday.</p>
+            <p>Consensus points to AI power demand. Missing: live RAG/news pipeline. Decision: check whether the story strengthened since yesterday.</p>
           </a>
 
           <h2 class="section-title" id="trial">Connect your portfolio</h2>
