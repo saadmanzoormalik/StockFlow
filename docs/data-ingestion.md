@@ -57,6 +57,25 @@ This means a Discover summary, Decide recommendation, or Connect portfolio check
 - `/api/data-lineage`: latest mock ingestion traces and the visible trace path.
 - `/api/app-state`: current unified app state consumed by Discover, Decide, and Connect.
 
+## Open-Source Bootstrap
+
+Run:
+
+```bash
+npm run ingest-open-sources
+```
+
+The first live open-source ingestion creates `data/stockflow-open-sources.sqlite`, pulls the official SEC company ticker directory, and normalizes each company into:
+
+```text
+ingestion_runs
+-> raw_source_events
+-> source_documents
+-> extracted_market_signals
+```
+
+This is enough to prove the production pattern with a large open-source universe before attaching paid sources. Next open-source expansions are SEC submissions/company facts by CIK, FRED macro series, and API-key market/fundamental sources.
+
 ## Production Notes
 
 Do not store full WSJ, Bloomberg, CNBC, or similar article text unless the data contract explicitly allows it. For licensed sources, default to metadata, provider document id, headline-level lineage, allowed snippets, and derived signal records.

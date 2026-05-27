@@ -65,6 +65,7 @@ Code entry points:
 - `data/product-processes.ts` defines the five mobile product processes and their unique feature/action subsets.
 - `data/unified-app-state.ts` defines the unified active app dataset that powers Discover, Decide, Connect, broker providers, learning signals, evaluations, and compliance copy.
 - `data/source-registry.ts` defines the source registry for premium news, filings, macro data, market data, fundamentals, and portfolio-provider feeds.
+- `data/open-source-universe.ts` defines the first investable universe and macro series list for open-source ingestion.
 - `data/ingestion-lineage.ts` defines the visible ingestion trace dashboard for source health and signal provenance.
 - `app/api/app-state/route.ts` exposes the unified active state as a single API contract for the mobile app.
 - `app/api/data-sources/route.ts` exposes source quality, cadence, access requirements, and activation status.
@@ -112,6 +113,20 @@ npm run ingestion-job
 ```
 
 The current job emits mock run traces for every registered source. Licensed sources are intentionally marked `skipped` until credentials and contracts are available.
+
+## Open-Source Data Ingestion
+
+```bash
+npm run ingest-open-sources
+```
+
+This creates `data/stockflow-open-sources.sqlite`, fetches the official SEC company ticker directory, and writes traceable rows into the source registry, ingestion run, raw event, source document, and extracted signal tables.
+
+For a smaller local test:
+
+```bash
+node scripts/ingest-open-sources.mjs --limit=100
+```
 
 ## Local Evaluation
 
