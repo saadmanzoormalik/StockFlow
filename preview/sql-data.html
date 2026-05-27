@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stock Pick Check - SQL Data Viewer</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070a0f;
+        --panel: #101620;
+        --panel-2: #151d29;
+        --text: #f4f7fb;
+        --muted: #9aa7b8;
+        --line: #253245;
+        --green: #47d18c;
+        --blue: #73a7ff;
+        --yellow: #ffd166;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(100%, 480px);
+        margin: 0 auto;
+        padding: 18px 14px 32px;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        margin: -18px -14px 14px;
+        padding: 16px 14px 12px;
+        background: rgba(7, 10, 15, 0.92);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .eyebrow {
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 6px 0 6px;
+        font-size: 28px;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .metric,
+      section {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+
+      .metric {
+        padding: 12px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--text);
+        font-size: 22px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      section {
+        margin-top: 12px;
+        overflow: hidden;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 15px;
+        letter-spacing: 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 0 8px;
+        border: 1px solid rgba(115, 167, 255, 0.35);
+        border-radius: 999px;
+        color: var(--blue);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 520px;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        text-align: left;
+        vertical-align: top;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      th {
+        color: var(--muted);
+        font-weight: 700;
+        background: var(--panel-2);
+      }
+
+      td {
+        color: #d8e0eb;
+      }
+
+      code {
+        color: var(--yellow);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 11px;
+      }
+
+      .trace {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .trace div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #d8e0eb;
+        font-size: 13px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--green);
+        box-shadow: 0 0 14px rgba(71, 209, 140, 0.45);
+        flex: 0 0 auto;
+      }
+
+      .note {
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid rgba(255, 209, 102, 0.32);
+        border-radius: 8px;
+        color: #ffe2a3;
+        background: rgba(255, 209, 102, 0.07);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="eyebrow">Live Local SQLite</div>
+        <h1>SQL data viewer</h1>
+        <p>Open-source SEC ingestion database. This shows the current local tables and traceable sample rows.</p>
+      </header>
+
+      <div class="grid" aria-label="database summary">
+        <div class="metric"><strong>23</strong><span>SQL tables</span></div>
+        <div class="metric"><strong>2</strong><span>ingestion runs</span></div>
+        <div class="metric"><strong>500</strong><span>raw source events</span></div>
+        <div class="metric"><strong>250</strong><span>extracted signals</span></div>
+      </div>
+
+      <section>
+        <div class="section-head">
+          <h2>Data Flow</h2>
+          <span class="pill">SEC -> Signals</span>
+        </div>
+        <div class="trace">
+          <div><span class="dot"></span><span>source_registry: SEC company ticker directory</span></div>
+          <div><span class="dot"></span><span>ingestion_runs: hourly open-source ingestion job</span></div>
+          <div><span class="dot"></span><span>raw_source_events: raw SEC ticker metadata</span></div>
+          <div><span class="dot"></span><span>source_documents: normalized source records</span></div>
+          <div><span class="dot"></span><span>extracted_market_signals: downstream scoring signals</span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Table Counts</h2>
+          <span class="pill">current snapshot</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Table</th><th>Rows</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>source_registry</code></td><td>1</td><td>Registered source: SEC company ticker directory</td></tr>
+              <tr><td><code>ingestion_runs</code></td><td>2</td><td>Completed open-source ingestion runs</td></tr>
+              <tr><td><code>raw_source_events</code></td><td>500</td><td>Raw SEC company ticker records across runs</td></tr>
+              <tr><td><code>source_documents</code></td><td>500</td><td>Normalized source records across runs</td></tr>
+              <tr><td><code>extracted_market_signals</code></td><td>250</td><td>Unique ticker universe signals</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Ingestion Runs</h2>
+          <span class="pill">latest first</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Run</th><th>Status</th><th>Seen</th><th>Accepted</th><th>Started</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>open-source-20260527T232320</code></td><td>completed</td><td>250</td><td>250</td><td>2026-05-27T23:23:20.876Z</td></tr>
+              <tr><td><code>open-source-20260527T232222</code></td><td>completed</td><td>250</td><td>250</td><td>2026-05-27T23:22:22.590Z</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Raw Source Events</h2>
+          <span class="pill">sample</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Provider Event</th><th>Type</th><th>Raw Metadata</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>sec-company-0001045810</code></td><td>company_ticker</td><td>{"cik":"0001045810","ticker":"NVDA","title":"NVIDIA CORP"}</td></tr>
+              <tr><td><code>sec-company-0001652044</code></td><td>company_ticker</td><td>{"cik":"0001652044","ticker":"GOOGL","title":"Alphabet Inc."}</td></tr>
+              <tr><td><code>sec-company-0000320193</code></td><td>company_ticker</td><td>{"cik":"0000320193","ticker":"AAPL","title":"Apple Inc."}</td></tr>
+              <tr><td><code>sec-company-0000789019</code></td><td>company_ticker</td><td>{"cik":"0000789019","ticker":"MSFT","title":"MICROSOFT CORP"}</td></tr>
+              <tr><td><code>sec-company-0001018724</code></td><td>company_ticker</td><td>{"cik":"0001018724","ticker":"AMZN","title":"AMAZON COM INC"}</td></tr>
+              <tr><td><code>sec-company-0001730168</code></td><td>company_ticker</td><td>{"cik":"0001730168","ticker":"AVGO","title":"Broadcom Inc."}</td></tr>
+              <tr><td><code>sec-company-0001318605</code></td><td>company_ticker</td><td>{"cik":"0001318605","ticker":"TSLA","title":"Tesla, Inc."}</td></tr>
+              <tr><td><code>sec-company-0001326801</code></td><td>company_ticker</td><td>{"cik":"0001326801","ticker":"META","title":"Meta Platforms, Inc."}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Extracted Signals</h2>
+          <span class="pill">sample</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Signal</th><th>Category</th><th>Summary</th><th>Confidence</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>universe-membership-NVDA</code></td><td>fundamentals</td><td>NVDA added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-GOOGL</code></td><td>fundamentals</td><td>GOOGL added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-AAPL</code></td><td>fundamentals</td><td>AAPL added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-MSFT</code></td><td>fundamentals</td><td>MSFT added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-AMZN</code></td><td>fundamentals</td><td>AMZN added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-AVGO</code></td><td>fundamentals</td><td>AVGO added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-TSLA</code></td><td>fundamentals</td><td>TSLA added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+              <tr><td><code>universe-membership-META</code></td><td>fundamentals</td><td>META added to the official SEC-listed company universe for downstream scoring.</td><td>0.98</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="note">
+        This page is a static viewer generated from the local SQLite snapshot. The real database file is ignored from Git and can be rebuilt with <code>npm run ingest-open-sources</code>.
+      </div>
+    </main>
+  </body>
+</html>
