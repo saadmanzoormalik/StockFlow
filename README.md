@@ -45,6 +45,10 @@ The mobile app is organized around five distinct user processes instead of gener
 - Connect: portfolio provider connection, concentration checks, overlap detection, and missing exposure.
 - Improve: feedback capture, personalization weights, evaluation gates, and governed model update candidates.
 
+For MVP testing, the mobile preview intentionally resets to onboarding on every fresh load. The expected demo path is:
+
+Onboarding hook -> Apple/Google account placeholder -> three personalization questions -> AI-generated sample outcome -> 7-day trial CTA -> app processes.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.

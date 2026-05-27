@@ -254,7 +254,19 @@
   <div class="hint">Mobile app preview. Resize narrow or open on your phone for full-screen mode.</div>
   <script>
     const selected = { strategy: "Balanced", risk: "Medium", timeline: "3-12 months" };
-    const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const main = document.querySelector("main");
+    const phone = document.querySelector(".phone");
+    const scrollToId = (id, behavior = "smooth") => document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
+
+    function resetToOnboarding() {
+      phone.classList.remove("app-mode");
+      document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === "discover"));
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+      scrollToId("step-0", "auto");
+      if (main) main.scrollTop = 0;
+    }
 
     function updateOutcome() {
       const fit = selected.strategy === "Aggressive" ? 82 : selected.strategy === "Conservative" ? 79 : 86;
@@ -280,7 +292,7 @@
 
     document.querySelectorAll("[data-tab]").forEach((link) => {
       link.addEventListener("click", () => {
-        document.querySelector(".phone").classList.add("app-mode");
+        phone.classList.add("app-mode");
         const tab = link.dataset.tab;
         document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
       });
@@ -288,9 +300,11 @@
 
     document.querySelectorAll("[data-enter-app]").forEach((link) => {
       link.addEventListener("click", () => {
-        document.querySelector(".phone").classList.add("app-mode");
+        phone.classList.add("app-mode");
       });
     });
+
+    window.addEventListener("load", resetToOnboarding);
   </script>
 </body>
 </html>
