@@ -42,6 +42,24 @@ At least one API key:
 - Polygon,
 - Finnhub.
 
+## Premium News And Enterprise Data
+
+To activate the highest-quality source layer:
+
+- Dow Jones / Factiva or WSJ-licensed news access.
+- Bloomberg Data License or other enterprise Bloomberg data contract.
+- CNBC or similar market-news feed rights where redistribution, summarization, and storage terms are clear.
+- Nasdaq Data Link API key if we use Nasdaq datasets.
+
+For premium news, we need explicit permission for what can be stored: metadata only, headline, excerpt, summary, embedding, or full article body.
+
+## Official Open Data
+
+- SEC EDGAR-compatible `SEC_USER_AGENT`.
+- FRED API key.
+
+These sources can power the first hourly ingestion loop while premium licensed feeds are being approved.
+
 ## Mobile Stores
 
 - Apple Developer account.

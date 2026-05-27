@@ -208,3 +208,35 @@ export type ActiveAppState = {
   };
   disclaimer: string;
 };
+
+export type SourceCadence = "30m" | "60m" | "daily" | "event";
+
+export type DataSourceRegistryEntry = {
+  id: string;
+  name: string;
+  provider: string;
+  sourceFamily: "premium_news" | "open_filings" | "macro_data" | "market_data" | "fundamentals" | "portfolio";
+  accessModel: "licensed" | "api_key" | "public" | "sandbox";
+  cadence: SourceCadence;
+  qualityTier: "enterprise" | "official" | "commercial" | "prototype";
+  endpointPattern: string;
+  envKeys: string[];
+  facets: Array<"macro" | "trade" | "geopolitics" | "earnings" | "rates" | "policy" | "price_volume" | "fundamentals" | "portfolio">;
+  lineagePolicy: string;
+  enabledForMvp: boolean;
+};
+
+export type IngestionRunStatus = "queued" | "running" | "completed" | "failed" | "skipped";
+
+export type IngestionTraceRecord = {
+  runId: string;
+  sourceId: string;
+  status: IngestionRunStatus;
+  startedAt: string;
+  completedAt?: string;
+  recordsSeen: number;
+  recordsAccepted: number;
+  recordsRejected: number;
+  outputTables: string[];
+  notes: string;
+};

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 
 const fixture = JSON.parse(readFileSync(new URL("../evals/local-eval-fixtures.json", import.meta.url), "utf8"));
-const { benchmarkTargets, demoRun, unifiedState } = fixture;
+const { benchmarkTargets, demoRun, unifiedState, sourceRegistry } = fixture;
 
 const checks = [
   {
@@ -51,6 +51,24 @@ const checks = [
     actual: unifiedState.brokerProviders.length,
     target: benchmarkTargets.brokerProviderMinimum,
     insight: "Connect should expose enough provider options for retail brokerage coverage."
+  },
+  {
+    metric: "sourceRegistryMinimum",
+    actual: sourceRegistry.sources.length,
+    target: benchmarkTargets.sourceRegistryMinimum,
+    insight: "The ingestion layer should register enough source types for market, macro, filings, news, and portfolio context."
+  },
+  {
+    metric: "traceTableMinimum",
+    actual: sourceRegistry.traceTables.length,
+    target: benchmarkTargets.traceTableMinimum,
+    insight: "Data updates should remain traceable from source registry through active app state."
+  },
+  {
+    metric: "licensedSourcesFlagged",
+    actual: sourceRegistry.sources.filter((source) => source.accessModel === "licensed" && source.enabledForMvp === false).length,
+    target: benchmarkTargets.licensedSourcesFlagged,
+    insight: "Premium sources must stay clearly flagged until license rights and credentials are configured."
   }
 ];
 

@@ -64,7 +64,11 @@ Code entry points:
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
 - `data/product-processes.ts` defines the five mobile product processes and their unique feature/action subsets.
 - `data/unified-app-state.ts` defines the unified active app dataset that powers Discover, Decide, Connect, broker providers, learning signals, evaluations, and compliance copy.
+- `data/source-registry.ts` defines the source registry for premium news, filings, macro data, market data, fundamentals, and portfolio-provider feeds.
+- `data/ingestion-lineage.ts` defines the visible ingestion trace dashboard for source health and signal provenance.
 - `app/api/app-state/route.ts` exposes the unified active state as a single API contract for the mobile app.
+- `app/api/data-sources/route.ts` exposes source quality, cadence, access requirements, and activation status.
+- `app/api/data-lineage/route.ts` exposes latest ingestion traces and the source-to-app-state lineage path.
 - `app/api/personalized-picks/route.ts` returns personalized top picks from onboarding/profile inputs.
 - `app/api/learning/route.ts` records learning events for recursive improvement.
 - `app/api/agents/route.ts` describes the agent workflow roles and evaluation criteria.
@@ -76,6 +80,13 @@ Code entry points:
 - `data/mock-picks.ts` powers the current UI and API demo.
 - `data/schema.sql` defines the prototype SQL system of record.
 - `data/seed.sql` adds starter records for stocks, evaluation runs, and model update history.
+- `docs/data-ingestion.md` explains the source registry, 30-minute/hourly refresh model, licensed-source boundaries, and trace tables.
+
+Data update path:
+
+Source registry -> ingestion run -> raw source event -> source document -> extracted signal -> trace link -> active app state.
+
+Premium sources such as Bloomberg, Dow Jones / WSJ, and CNBC are registered but disabled until licensed credentials and usage rights are configured. Open/API-key sources such as SEC EDGAR, FRED, Alpha Vantage, and Financial Modeling Prep are the prototype starting point.
 
 ## Run Locally
 
@@ -93,6 +104,14 @@ npm run daily-job
 ```
 
 The current job uses mock data. The production path is to replace mock price/volume and fundamentals with Alpha Vantage, Financial Modeling Prep, Polygon, or another licensed market data provider.
+
+## Source Ingestion Prototype
+
+```bash
+npm run ingestion-job
+```
+
+The current job emits mock run traces for every registered source. Licensed sources are intentionally marked `skipped` until credentials and contracts are available.
 
 ## Local Evaluation
 
@@ -113,6 +132,7 @@ See:
 - `docs/supabase-setup.md`
 - `docs/deployment.md`
 - `docs/evaluation-framework.md`
+- `docs/data-ingestion.md`
 - `docs/app-store-roadmap.md`
 - `docs/native-build.md`
 - `docs/notification-strategy.md`

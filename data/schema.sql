@@ -195,3 +195,108 @@ CREATE TABLE broker_providers (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE source_registry (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source_key TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  provider TEXT NOT NULL,
+  source_family TEXT NOT NULL CHECK(source_family IN ('premium_news', 'open_filings', 'macro_data', 'market_data', 'fundamentals', 'portfolio')),
+  access_model TEXT NOT NULL CHECK(access_model IN ('licensed', 'api_key', 'public', 'sandbox')),
+  cadence TEXT NOT NULL CHECK(cadence IN ('30m', '60m', 'daily', 'event')),
+  quality_tier TEXT NOT NULL CHECK(quality_tier IN ('enterprise', 'official', 'commercial', 'prototype')),
+  endpoint_pattern TEXT NOT NULL,
+  env_keys_json TEXT NOT NULL,
+  facets_json TEXT NOT NULL,
+  lineage_policy TEXT NOT NULL,
+  enabled_for_mvp INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ingestion_runs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  run_key TEXT NOT NULL UNIQUE,
+  source_id INTEGER NOT NULL,
+  status TEXT NOT NULL CHECK(status IN ('queued', 'running', 'completed', 'failed', 'skipped')),
+  cadence TEXT NOT NULL CHECK(cadence IN ('30m', '60m', 'daily', 'event')),
+  started_at TEXT NOT NULL,
+  completed_at TEXT,
+  records_seen INTEGER NOT NULL DEFAULT 0,
+  records_accepted INTEGER NOT NULL DEFAULT 0,
+  records_rejected INTEGER NOT NULL DEFAULT 0,
+  output_tables_json TEXT NOT NULL,
+  notes TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (source_id) REFERENCES source_registry(id)
+);
+
+CREATE TABLE raw_source_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ingestion_run_id INTEGER NOT NULL,
+  source_id INTEGER NOT NULL,
+  provider_event_id TEXT NOT NULL,
+  event_type TEXT NOT NULL,
+  event_timestamp TEXT NOT NULL,
+  source_url TEXT,
+  raw_metadata_json TEXT NOT NULL,
+  body_storage_policy TEXT NOT NULL CHECK(body_storage_policy IN ('metadata_only', 'licensed_excerpt', 'full_text_allowed')),
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ingestion_run_id) REFERENCES ingestion_runs(id),
+  FOREIGN KEY (source_id) REFERENCES source_registry(id)
+);
+
+CREATE TABLE source_documents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  raw_event_id INTEGER NOT NULL,
+  document_key TEXT NOT NULL,
+  source_title TEXT NOT NULL,
+  source_author TEXT,
+  published_at TEXT NOT NULL,
+  canonical_url TEXT,
+  source_excerpt TEXT,
+  rights_status TEXT NOT NULL CHECK(rights_status IN ('public', 'licensed_metadata_only', 'licensed_excerpt', 'licensed_full_text')),
+  checksum TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (raw_event_id) REFERENCES raw_source_events(id)
+);
+
+CREATE TABLE extracted_market_signals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source_document_id INTEGER NOT NULL,
+  signal_key TEXT NOT NULL,
+  signal_category TEXT NOT NULL,
+  signal_summary TEXT NOT NULL,
+  affected_tickers_json TEXT NOT NULL,
+  affected_themes_json TEXT NOT NULL,
+  scoring_factors_json TEXT NOT NULL,
+  confidence REAL NOT NULL,
+  extraction_model_version TEXT NOT NULL,
+  extracted_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (source_document_id) REFERENCES source_documents(id)
+);
+
+CREATE TABLE signal_trace_links (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  signal_id INTEGER NOT NULL,
+  target_table TEXT NOT NULL,
+  target_record_key TEXT NOT NULL,
+  decision_surface TEXT NOT NULL CHECK(decision_surface IN ('Discover', 'Decide', 'Connect', 'Menu')),
+  transformation_step TEXT NOT NULL,
+  factor_delta_json TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (signal_id) REFERENCES extracted_market_signals(id)
+);
+
+CREATE TABLE active_state_update_traces (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  state_id INTEGER NOT NULL,
+  ingestion_run_id INTEGER NOT NULL,
+  update_reason TEXT NOT NULL,
+  source_signal_count INTEGER NOT NULL,
+  before_snapshot_json TEXT NOT NULL,
+  after_snapshot_json TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (state_id) REFERENCES active_app_states(id),
+  FOREIGN KEY (ingestion_run_id) REFERENCES ingestion_runs(id)
+);

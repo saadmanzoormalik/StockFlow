@@ -7,7 +7,10 @@
     "portfolioContextUsed": 1,
     "riskFitExplained": 1,
     "unifiedStateSurfaces": 3,
-    "brokerProviderMinimum": 5
+    "brokerProviderMinimum": 5,
+    "sourceRegistryMinimum": 6,
+    "traceTableMinimum": 6,
+    "licensedSourcesFlagged": 2
   },
   "demoRun": {
     "ticker": "VRT",
@@ -30,5 +33,26 @@
     "surfaces": ["Discover", "Decide", "Connect"],
     "brokerProviders": ["Robinhood", "Schwab", "Fidelity", "E*TRADE", "Webull", "Manual import"],
     "disclaimer": "This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results."
+  },
+  "sourceRegistry": {
+    "sources": [
+      {"id": "dow-jones-factiva", "accessModel": "licensed", "enabledForMvp": false},
+      {"id": "bloomberg-data-license", "accessModel": "licensed", "enabledForMvp": false},
+      {"id": "cnbc-markets", "accessModel": "licensed", "enabledForMvp": false},
+      {"id": "sec-edgar", "accessModel": "public", "enabledForMvp": true},
+      {"id": "fred", "accessModel": "api_key", "enabledForMvp": true},
+      {"id": "alpha-vantage", "accessModel": "api_key", "enabledForMvp": true},
+      {"id": "financial-modeling-prep", "accessModel": "api_key", "enabledForMvp": true},
+      {"id": "portfolio-aggregator", "accessModel": "sandbox", "enabledForMvp": true}
+    ],
+    "traceTables": [
+      "source_registry",
+      "ingestion_runs",
+      "raw_source_events",
+      "source_documents",
+      "extracted_market_signals",
+      "signal_trace_links",
+      "active_app_states"
+    ]
   }
 }

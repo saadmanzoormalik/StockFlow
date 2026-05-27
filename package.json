@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "daily-job": "tsx scripts/run-daily-job.ts",
+    "ingestion-job": "tsx scripts/run-ingestion-job.ts",
     "local-eval": "node scripts/local-evaluation.mjs"
   },
   "dependencies": {
