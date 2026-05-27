@@ -53,11 +53,11 @@ In-app actions should stay deliberately minimal: short command labels, tiny sign
 
 Primary mobile navigation should stay focused on three bottom actions: Discover, Decide, and Connect. Secondary surfaces such as profile, risk settings, learning, subscription, notifications, privacy, and account deletion live behind the side Menu tab.
 
-Discover should open with a personalized adaptive summary first, then a simple ordered set of stock options, then a simplified global market/news read underneath. The news layer is not a feed of articles; it is a short translation of major macro and market signals into what matters for the user's next stock decision.
+Discover should open with a personalized adaptive synthesis of where the world moved across markets, trade, geopolitics, policy, rates, and the most pressing macro issue. It should translate that world movement into one simple theme before sending the user to Decide.
 
-The top Discover summary should feel AI-native without adding extra cards: use compact synthesis language, signal counts, ranked-pick context, and fit scores inside the existing insight card.
+Decide should turn the Discover theme into a simple ordered set of stock options with reasons, expected range, risk, and next action, personalized to the user's profile.
 
-The core loop should be subtle and sequential: Discover surfaces the personalized insight, Decide turns the selected idea into a watch/save/compare/pass choice, and Connect validates that choice against external brokerage context such as Robinhood, Schwab, Fidelity, E*TRADE, Webull, or another provider.
+The core loop should be subtle and sequential: Discover surfaces the world insight, Decide translates it into personalized stock choices, and Connect validates those choices against external brokerage context such as Robinhood, Schwab, Fidelity, E*TRADE, Webull, or another provider.
 
 Code entry points:
 
