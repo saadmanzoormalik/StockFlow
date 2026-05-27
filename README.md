@@ -63,6 +63,8 @@ Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
 - `data/product-processes.ts` defines the five mobile product processes and their unique feature/action subsets.
+- `data/unified-app-state.ts` defines the unified active app dataset that powers Discover, Decide, Connect, broker providers, learning signals, evaluations, and compliance copy.
+- `app/api/app-state/route.ts` exposes the unified active state as a single API contract for the mobile app.
 - `app/api/personalized-picks/route.ts` returns personalized top picks from onboarding/profile inputs.
 - `app/api/learning/route.ts` records learning events for recursive improvement.
 - `app/api/agents/route.ts` describes the agent workflow roles and evaluation criteria.

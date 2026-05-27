@@ -138,3 +138,73 @@ export type PerformancePoint = {
   nasdaq: number;
   dow: number;
 };
+
+export type AppSurface = "Discover" | "Decide" | "Connect" | "Menu";
+
+export type MarketSynthesisSignal = {
+  id: string;
+  category: "Macro" | "Trade" | "Geopolitics" | "Policy" | "Rates" | "Earnings" | "Capital Flow";
+  headline: string;
+  summary: string;
+  userTranslation: string;
+  confidence: number;
+  sourceType: "mock" | "news" | "filing" | "market_data" | "analyst_consensus";
+};
+
+export type RankedStockOption = {
+  rank: number;
+  ticker: string;
+  company: string;
+  theme: string;
+  fitLabel: string;
+  reason: string;
+  action: "Watch" | "Compare" | "Explore" | "Pass";
+  expectedReturn: string;
+  expectedTimeline: string;
+  riskLevel: RiskLevel;
+  personalizedScore: number;
+};
+
+export type BrokerProvider = {
+  id: string;
+  name: string;
+  connectionStatus: "available" | "connected" | "coming_soon";
+  authPattern: "oauth" | "aggregator" | "manual";
+  purpose: string;
+};
+
+export type ActiveAppState = {
+  schemaVersion: string;
+  stateDate: string;
+  modelVersion: string;
+  userId: string;
+  profile: UserInvestorProfile;
+  activeSurface: AppSurface;
+  discover: {
+    worldSynthesis: string;
+    primaryTheme: string;
+    signals: MarketSynthesisSignal[];
+    nextSurface: "Decide";
+  };
+  decide: {
+    selectedTheme: string;
+    rankedOptions: RankedStockOption[];
+    nextBestAction: string;
+    nextSurface: "Connect";
+  };
+  connect: {
+    reasonToConnect: string;
+    providers: BrokerProvider[];
+    portfolioChecks: string[];
+  };
+  learning: {
+    acceptedEvents: LearningEvent["eventType"][];
+    lastUpdateSummary: string;
+    nextModelCandidate: string;
+  };
+  evaluation: {
+    requiredChecks: string[];
+    passThreshold: number;
+  };
+  disclaimer: string;
+};

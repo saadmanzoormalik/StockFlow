@@ -134,3 +134,64 @@ CREATE TABLE personalization_model_updates (
   deployed_at TEXT,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE active_app_states (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL,
+  state_date TEXT NOT NULL,
+  schema_version TEXT NOT NULL,
+  model_version TEXT NOT NULL,
+  active_surface TEXT NOT NULL CHECK(active_surface IN ('Discover', 'Decide', 'Connect', 'Menu')),
+  profile_snapshot_json TEXT NOT NULL,
+  discover_snapshot_json TEXT NOT NULL,
+  decide_snapshot_json TEXT NOT NULL,
+  connect_snapshot_json TEXT NOT NULL,
+  learning_snapshot_json TEXT NOT NULL,
+  evaluation_snapshot_json TEXT NOT NULL,
+  disclaimer TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(user_id, state_date, schema_version)
+);
+
+CREATE TABLE market_synthesis_signals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  state_id INTEGER NOT NULL,
+  signal_key TEXT NOT NULL,
+  category TEXT NOT NULL,
+  headline TEXT NOT NULL,
+  summary TEXT NOT NULL,
+  user_translation TEXT NOT NULL,
+  confidence REAL NOT NULL,
+  source_type TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (state_id) REFERENCES active_app_states(id)
+);
+
+CREATE TABLE ranked_stock_options (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  state_id INTEGER NOT NULL,
+  ticker TEXT NOT NULL,
+  rank INTEGER NOT NULL,
+  theme TEXT NOT NULL,
+  fit_label TEXT NOT NULL,
+  reason TEXT NOT NULL,
+  action TEXT NOT NULL,
+  expected_return TEXT NOT NULL,
+  expected_timeline TEXT NOT NULL,
+  risk_level TEXT NOT NULL,
+  personalized_score REAL NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (state_id) REFERENCES active_app_states(id)
+);
+
+CREATE TABLE broker_providers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  provider_key TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  connection_status TEXT NOT NULL CHECK(connection_status IN ('available', 'connected', 'coming_soon')),
+  auth_pattern TEXT NOT NULL CHECK(auth_pattern IN ('oauth', 'aggregator', 'manual')),
+  purpose TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

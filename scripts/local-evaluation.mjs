@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 
 const fixture = JSON.parse(readFileSync(new URL("../evals/local-eval-fixtures.json", import.meta.url), "utf8"));
-const { benchmarkTargets, demoRun } = fixture;
+const { benchmarkTargets, demoRun, unifiedState } = fixture;
 
 const checks = [
   {
@@ -39,6 +39,18 @@ const checks = [
     actual: demoRun.agentRationale.riskAgent.toLowerCase().includes("risk") ? 1 : 0,
     target: benchmarkTargets.riskFitExplained,
     insight: "Risk fit must be explicitly explained for retail users."
+  },
+  {
+    metric: "unifiedStateSurfaces",
+    actual: unifiedState.surfaces.filter((surface) => ["Discover", "Decide", "Connect"].includes(surface)).length,
+    target: benchmarkTargets.unifiedStateSurfaces,
+    insight: "Unified app state should preserve the Discover-Decide-Connect loop."
+  },
+  {
+    metric: "brokerProviderMinimum",
+    actual: unifiedState.brokerProviders.length,
+    target: benchmarkTargets.brokerProviderMinimum,
+    insight: "Connect should expose enough provider options for retail brokerage coverage."
   }
 ];
 

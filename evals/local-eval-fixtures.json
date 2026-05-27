@@ -5,7 +5,9 @@
     "personalizedScoreMinimum": 75,
     "agentRationaleCount": 4,
     "portfolioContextUsed": 1,
-    "riskFitExplained": 1
+    "riskFitExplained": 1,
+    "unifiedStateSurfaces": 3,
+    "brokerProviderMinimum": 5
   },
   "demoRun": {
     "ticker": "VRT",
@@ -23,5 +25,10 @@
       "Medium risk fit",
       "Portfolio diversification benefit"
     ]
+  },
+  "unifiedState": {
+    "surfaces": ["Discover", "Decide", "Connect"],
+    "brokerProviders": ["Robinhood", "Schwab", "Fidelity", "E*TRADE", "Webull", "Manual import"],
+    "disclaimer": "This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results."
   }
 }
