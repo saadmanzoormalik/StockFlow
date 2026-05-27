@@ -51,6 +51,8 @@ Onboarding hook -> Apple/Google account placeholder -> three personalization que
 
 In-app actions should stay deliberately minimal: short command labels, tiny signal badges, and only one supporting sentence per panel. The app should feel like a native decision assistant, not a compressed research report.
 
+Primary mobile navigation should stay focused on three bottom actions: Discover, Decide, and Connect. Secondary surfaces such as profile, risk settings, learning, subscription, notifications, privacy, and account deletion live behind the side Menu tab.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
