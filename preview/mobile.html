@@ -5,148 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stock Pick Check - Mobile Preview</title>
   <style>
-    :root {
-      --ink: #15202b;
-      --muted: #667685;
-      --line: #e3e9ef;
-      --panel: #f7fafc;
-      --green: #147d64;
-      --blue: #2b6cb0;
-      --amber: #b7791f;
-    }
+    :root { --ink:#15202b; --muted:#667685; --line:#e3e9ef; --panel:#f7fafc; --green:#147d64; --blue:#2b6cb0; --amber:#b7791f; }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #edf3f7;
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    .stage { display: grid; min-height: 100vh; place-items: center; padding: 22px; }
-    .phone {
-      position: relative;
-      width: min(420px, 100%);
-      height: min(860px, calc(100vh - 44px));
-      overflow: hidden;
-      border: 10px solid #101820;
-      border-radius: 36px;
-      background: #fff;
-      box-shadow: 0 28px 80px rgba(21, 32, 43, .22);
-    }
-    .app { height: 100%; overflow-y: auto; padding-bottom: 90px; background: #fff; }
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: rgba(255,255,255,.96);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-      padding: 12px 18px;
-    }
-    .brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .logo { display: flex; align-items: center; gap: 9px; font-weight: 850; }
-    .mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 9px; background: var(--ink); color: #fff; font-size: 13px; }
-    .icon-btn { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-    main { padding: 18px; }
-    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 850; text-transform: uppercase; }
-    h1 { margin: 8px 0 0; font-size: 36px; line-height: 1; letter-spacing: 0; }
-    h2 { margin: 0; font-size: 22px; line-height: 1.1; }
-    h3 { margin: 0; font-size: 16px; line-height: 1.2; }
-    p { margin: 0; line-height: 1.55; }
-    .sub { color: var(--muted); font-size: 14px; }
-    .onboarding { display: grid; gap: 16px; min-height: calc(100vh - 158px); align-content: start; }
-    .question-card, .card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: 0 14px 34px rgba(21, 32, 43, .06);
-    }
-    .question-card { padding: 14px; }
-    .question { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .question small { color: var(--muted); font-size: 12px; font-weight: 800; }
-    .options { display: flex; gap: 8px; overflow-x: auto; margin-top: 10px; padding-bottom: 2px; }
-    .pill {
-      display: inline-flex;
-      min-height: 40px;
-      align-items: center;
-      white-space: nowrap;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      padding: 0 14px;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 850;
-      text-decoration: none;
-    }
-    .pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .outcome { padding: 16px; background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%); }
-    .row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .ticker { margin-top: 6px; font-size: 34px; font-weight: 900; line-height: .95; }
-    .score { border-radius: 14px; background: var(--panel); padding: 9px 12px; text-align: right; }
-    .score small { display: block; color: var(--muted); font-size: 11px; }
-    .score strong { display: block; color: var(--green); font-size: 24px; }
-    .badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-    .badge { border-radius: 999px; padding: 6px 9px; font-size: 12px; font-weight: 850; }
-    .balanced { background: #e6fffa; color: #0f766e; }
-    .risk { background: #fffbeb; color: #a16207; }
-    .cta {
-      display: flex;
-      min-height: 50px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 15px;
-      background: var(--ink);
-      color: #fff;
-      font-weight: 900;
-      text-decoration: none;
-    }
-    .tabs { position: sticky; top: 63px; z-index: 4; display: flex; gap: 8px; overflow-x: auto; margin: 0 -18px; padding: 10px 18px; background: rgba(255,255,255,.95); border-bottom: 1px solid var(--line); backdrop-filter: blur(16px); }
-    .tab { flex: 0 0 auto; border-radius: 999px; border: 1px solid var(--line); padding: 9px 13px; color: var(--muted); font-size: 13px; font-weight: 850; text-decoration: none; }
-    .tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
-    .section { padding-top: 18px; scroll-margin-top: 120px; }
-    .stack { display: grid; gap: 10px; margin-top: 12px; }
-    .item { padding: 14px; }
-    .item p { margin-top: 7px; color: var(--muted); font-size: 13px; }
-    .action { border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; white-space: nowrap; }
-    .watch { background: #ebf8ff; color: #2b6cb0; }
-    .learn { background: #f1f5f9; color: #334155; }
-    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-    .metric { border-radius: 14px; background: var(--panel); padding: 11px; font-size: 13px; }
-    .metric span { display: block; color: var(--muted); font-size: 12px; }
-    .metric strong { display: block; margin-top: 4px; }
-    .disclaimer { margin: 18px 0 4px; color: var(--muted); font-size: 11px; line-height: 1.5; }
-    .bottom-nav {
-      position: absolute;
-      inset: auto 0 0;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2px;
-      border-top: 1px solid var(--line);
-      background: rgba(255,255,255,.96);
-      padding: 8px 8px 12px;
-      backdrop-filter: blur(18px);
-    }
-    .bottom-nav a {
-      display: flex;
-      min-height: 54px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 10.5px;
-      font-weight: 850;
-      text-decoration: none;
-    }
-    .bottom-nav .active { background: var(--panel); color: var(--ink); }
-    .hint { position: fixed; left: 22px; bottom: 18px; color: #334155; font-size: 13px; }
-    @media (max-width: 520px) {
-      .stage { padding: 0; }
-      .phone { width: 100%; height: 100vh; border: 0; border-radius: 0; }
-      .hint { display: none; }
-    }
+    body { margin:0; min-height:100vh; background:#edf3f7; color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .stage { display:grid; min-height:100vh; place-items:center; padding:22px; }
+    .phone { position:relative; width:min(420px,100%); height:min(860px,calc(100vh - 44px)); overflow:hidden; border:10px solid #101820; border-radius:36px; background:#fff; box-shadow:0 28px 80px rgba(21,32,43,.22); }
+    .app { height:100%; overflow:hidden; background:#fff; }
+    header { height:60px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); padding:0 18px; background:rgba(255,255,255,.96); }
+    .logo { display:flex; align-items:center; gap:9px; font-weight:850; }
+    .mark { display:grid; width:34px; height:34px; place-items:center; border-radius:9px; background:var(--ink); color:#fff; font-size:13px; }
+    .icon-btn { display:grid; width:38px; height:38px; place-items:center; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    main { height:calc(100% - 60px); overflow-y:auto; padding:18px 18px 90px; scroll-behavior:smooth; }
+    .screen { min-height:calc(100vh - 170px); display:grid; align-content:center; gap:18px; padding:6px 0 24px; }
+    .eyebrow { color:var(--blue); font-size:12px; font-weight:850; text-transform:uppercase; }
+    h1 { margin:8px 0 0; font-size:40px; line-height:1; letter-spacing:0; }
+    h2 { margin:0; font-size:28px; line-height:1.05; }
+    h3 { margin:0; font-size:16px; line-height:1.2; }
+    p { margin:0; line-height:1.55; }
+    .sub { color:var(--muted); font-size:14px; }
+    .card { border:1px solid var(--line); border-radius:20px; background:#fff; box-shadow:0 14px 34px rgba(21,32,43,.06); }
+    .hero-card { padding:18px; background:linear-gradient(180deg,#fff 0%,#f8fbfc 100%); }
+    .row { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:14px; }
+    .metric { border-radius:16px; background:var(--panel); padding:12px; }
+    .metric span { display:block; color:var(--muted); font-size:12px; }
+    .metric strong { display:block; margin-top:4px; font-size:20px; }
+    .green { color:var(--green); }
+    .cta, .secondary { display:flex; min-height:52px; align-items:center; justify-content:center; border-radius:16px; font-weight:900; text-decoration:none; cursor:pointer; }
+    .cta { border:0; background:var(--ink); color:#fff; width:100%; }
+    .secondary { border:1px solid var(--line); background:#fff; color:var(--ink); width:100%; }
+    .auth { display:grid; gap:10px; }
+    .option { width:100%; min-height:58px; border:1px solid var(--line); border-radius:16px; background:#fff; padding:0 16px; text-align:left; font-size:16px; font-weight:850; color:var(--ink); }
+    .option.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .progress { display:flex; gap:6px; }
+    .dot { height:6px; flex:1; border-radius:999px; background:#e8eef4; }
+    .dot.active { background:var(--ink); }
+    .ticker { margin-top:6px; font-size:48px; font-weight:950; line-height:.9; }
+    .score { border-radius:16px; background:var(--panel); padding:10px 13px; text-align:right; }
+    .score small { display:block; color:var(--muted); font-size:11px; }
+    .score strong { display:block; color:var(--green); font-size:25px; }
+    .badges { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+    .badge { border-radius:999px; padding:6px 9px; font-size:12px; font-weight:850; }
+    .balanced { background:#e6fffa; color:#0f766e; }
+    .risk { background:#fffbeb; color:#a16207; }
+    .watch { background:#ebf8ff; color:#2b6cb0; }
+    .tabs { position:sticky; top:-18px; z-index:4; display:flex; gap:8px; overflow-x:auto; margin:0 -18px; padding:10px 18px; background:rgba(255,255,255,.95); border-bottom:1px solid var(--line); backdrop-filter:blur(16px); }
+    .tab { flex:0 0 auto; border-radius:999px; border:1px solid var(--line); padding:9px 13px; color:var(--muted); font-size:13px; font-weight:850; text-decoration:none; }
+    .tab.active { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .section { padding-top:18px; scroll-margin-top:70px; }
+    .stack { display:grid; gap:10px; margin-top:12px; }
+    .item { padding:14px; }
+    .item p { margin-top:7px; color:var(--muted); font-size:13px; }
+    .bottom-nav { position:absolute; inset:auto 0 0; display:none; grid-template-columns:repeat(5,1fr); gap:2px; border-top:1px solid var(--line); background:rgba(255,255,255,.96); padding:8px 8px 12px; backdrop-filter:blur(18px); }
+    .phone.app-mode .bottom-nav { display:grid; }
+    .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
+    .bottom-nav .active { background:var(--panel); color:var(--ink); }
+    .disclaimer { color:var(--muted); font-size:11px; line-height:1.5; margin-top:14px; }
+    .hint { position:fixed; left:22px; bottom:18px; color:#334155; font-size:13px; }
+    @media (max-width:520px){ .stage{padding:0}.phone{width:100%;height:100vh;border:0;border-radius:0}.hint{display:none}.screen{min-height:calc(100vh - 150px)} }
   </style>
 </head>
 <body>
@@ -154,64 +70,94 @@
     <div class="phone">
       <div class="app">
         <header>
-          <div class="brand">
-            <div class="logo"><div class="mark">SP</div><span>Stock Pick Check</span></div>
-            <div class="icon-btn">☾</div>
-          </div>
+          <div class="logo"><div class="mark">SP</div><span>Stock Pick Check</span></div>
+          <div class="icon-btn">☾</div>
         </header>
         <main>
-          <section class="onboarding" id="onboarding">
+          <section class="screen" id="step-0">
             <div>
-              <div class="eyebrow">Start here</div>
-              <h1>Get your top stock pick for how you invest.</h1>
-              <p class="sub" style="margin-top:12px">Four quick answers personalize the daily briefing, risk fit, and portfolio-aware picks.</p>
+              <div class="eyebrow">AI stock-picking app</div>
+              <h1>What if $1,000 could become $1,600?</h1>
+              <p class="sub" style="margin-top:12px">See hypothetical upside scenarios, clear risk, and AI-ranked stock picks before you act.</p>
             </div>
-
-            <div class="question-card">
-              <div class="question"><h3>1. What is your style?</h3><small>Strategy</small></div>
-              <div class="options">
-                <button class="pill" data-group="strategy">Conservative</button>
-                <button class="pill active" data-group="strategy">Balanced</button>
-                <button class="pill" data-group="strategy">Aggressive</button>
-              </div>
-            </div>
-            <div class="question-card">
-              <div class="question"><h3>2. How much volatility is okay?</h3><small>Risk</small></div>
-              <div class="options">
-                <button class="pill" data-group="risk">Low</button>
-                <button class="pill active" data-group="risk">Medium</button>
-                <button class="pill" data-group="risk">High</button>
-              </div>
-            </div>
-            <div class="question-card">
-              <div class="question"><h3>3. What timeline do you prefer?</h3><small>Horizon</small></div>
-              <div class="options">
-                <button class="pill" data-group="timeline">0-3 mo</button>
-                <button class="pill active" data-group="timeline">3-12 mo</button>
-                <button class="pill" data-group="timeline">12+ mo</button>
-              </div>
-            </div>
-            <div class="question-card">
-              <div class="question"><h3>4. Connect portfolio?</h3><small>Optional</small></div>
-              <div class="options">
-                <button class="pill active" data-group="portfolio">Use sample</button>
-                <button class="pill" data-group="portfolio">Connect</button>
-              </div>
-            </div>
-
-            <div class="card outcome">
+            <div class="card hero-card">
               <div class="row">
-                <div>
-                  <p class="sub">Your sample outcome</p>
-                  <div class="ticker">VRT</div>
-                  <p class="sub">Vertiv</p>
-                </div>
+                <div><p class="sub">Example investment</p><div class="ticker">$1k</div></div>
+                <div class="score"><small>Hypothetical</small><strong>+$600</strong></div>
+              </div>
+              <div class="metric-grid">
+                <div class="metric"><span>Timeline</span><strong>3 mo</strong></div>
+                <div class="metric"><span>Frame</span><strong>Example</strong></div>
+              </div>
+              <p class="disclaimer">Hypothetical example only. Not a guarantee or financial advice.</p>
+            </div>
+            <button class="cta" data-next="step-1">See my potential pick</button>
+          </section>
+
+          <section class="screen" id="step-1">
+            <div class="progress"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div>
+              <div class="eyebrow">Create account</div>
+              <h1>Save your picks in seconds.</h1>
+              <p class="sub" style="margin-top:12px">Sign up so your risk profile, watchlist, and daily briefings can adapt over time.</p>
+            </div>
+            <div class="auth">
+              <button class="cta" data-next="step-2">Continue with Apple</button>
+              <button class="secondary" data-next="step-2">Continue with Google</button>
+            </div>
+            <p class="disclaimer">Demo buttons advance the prototype. Production will use Apple/Google auth.</p>
+          </section>
+
+          <section class="screen" id="step-2">
+            <div class="progress"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div><div class="eyebrow">Question 1 of 3</div><h1>What is your style?</h1><p class="sub" style="margin-top:12px">One tap. No investing homework.</p></div>
+            <div class="stack">
+              <button class="option" data-group="strategy" data-next="step-3">Conservative</button>
+              <button class="option active" data-group="strategy" data-next="step-3">Balanced</button>
+              <button class="option" data-group="strategy" data-next="step-3">Aggressive</button>
+            </div>
+          </section>
+
+          <section class="screen" id="step-3">
+            <div class="progress"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+            <div><div class="eyebrow">Question 2 of 3</div><h1>How much volatility is okay?</h1><p class="sub" style="margin-top:12px">This changes your picks, not just your label.</p></div>
+            <div class="stack">
+              <button class="option" data-group="risk" data-next="step-4">Low</button>
+              <button class="option active" data-group="risk" data-next="step-4">Medium</button>
+              <button class="option" data-group="risk" data-next="step-4">High</button>
+            </div>
+          </section>
+
+          <section class="screen" id="step-4">
+            <div class="progress"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+            <div><div class="eyebrow">Question 3 of 3</div><h1>What timeline do you prefer?</h1><p class="sub" style="margin-top:12px">Your briefing adapts around this horizon.</p></div>
+            <div class="stack">
+              <button class="option" data-group="timeline" data-next="step-5">0-3 months</button>
+              <button class="option active" data-group="timeline" data-next="step-5">3-12 months</button>
+              <button class="option" data-group="timeline" data-next="step-5">12+ months</button>
+            </div>
+          </section>
+
+          <section class="screen" id="step-5">
+            <div>
+              <div class="eyebrow">Your free sample picks</div>
+              <h1>VRT fits your profile.</h1>
+              <p class="sub" style="margin-top:12px">Here is the story before the full app opens.</p>
+            </div>
+            <div class="card hero-card">
+              <div class="row">
+                <div><p class="sub">Top pick</p><div class="ticker">VRT</div><p class="sub">Vertiv</p></div>
                 <div class="score"><small>Fit</small><strong id="fit-score">86</strong></div>
               </div>
-              <div class="badges"><span class="badge balanced" id="strategy-badge">Balanced</span><span class="badge risk" id="risk-badge">Medium risk</span></div>
-              <p class="sub" id="outcome-copy" style="margin-top:12px">AI likes cooling and power exposure for your sample profile, but marks it as Watch until a buy trigger appears.</p>
+              <div class="badges"><span class="badge balanced" id="strategy-badge">Balanced</span><span class="badge risk" id="risk-badge">Medium risk</span><span class="badge watch">Watch</span></div>
+              <div class="metric-grid">
+                <div class="metric"><span>Expected range</span><strong>12-28%</strong></div>
+                <div class="metric"><span>Timeline</span><strong id="timeline-copy">3-12 mo</strong></div>
+              </div>
+              <p class="sub" id="outcome-copy" style="margin-top:12px">Hypothetical: a $1,000 position moving 12%-28% would imply $120-$280 upside before losses, taxes, and fees.</p>
             </div>
-            <a class="cta" href="#today">Enter app</a>
+            <a class="cta" href="#today" data-enter-app>Start 7-day free trial</a>
+            <a class="secondary" href="#today" data-enter-app>Enter app</a>
           </section>
 
           <nav class="tabs">
@@ -226,54 +172,14 @@
             <div class="eyebrow">Morning briefing</div>
             <h2>Should VRT stay on your watchlist today?</h2>
             <div class="stack">
-              <article class="card item">
-                <div class="row"><h3>Your market briefing is ready</h3><span class="action watch">Watch</span></div>
-                <p>VRT still fits your profile. AI power demand strengthened, but no buy trigger yet.</p>
-              </article>
-              <article class="card item">
-                <div class="row"><h3>What changed</h3><span class="action learn">2 min</span></div>
-                <p>Model factor: bottleneck score plus portfolio diversification. Missing: live holdings sync and catalyst confirmation.</p>
-              </article>
+              <article class="card item"><div class="row"><h3>Your market briefing is ready</h3><span class="badge watch">Watch</span></div><p>VRT still fits your profile. AI power demand strengthened, but no buy trigger yet.</p></article>
+              <article class="card item"><div class="row"><h3>What changed</h3><span class="badge balanced">2 min</span></div><p>Model factor: bottleneck score plus portfolio diversification. Missing: live holdings sync and catalyst confirmation.</p></article>
             </div>
           </section>
-
-          <section class="section" id="pick">
-            <div class="eyebrow">Top pick</div>
-            <h2>VRT fits your balanced profile.</h2>
-            <div class="card item">
-              <p>Strategy Agent likes balanced upside. Risk Agent accepts medium risk. Portfolio Agent says it diversifies AI compute exposure.</p>
-              <div class="metric-grid">
-                <div class="metric"><span>Expected range</span><strong>12% to 28%</strong></div>
-                <div class="metric"><span>Timeline</span><strong>3-9 months</strong></div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section" id="risk">
-            <div class="eyebrow">Risk appetite</div>
-            <h2>Your current setting is Balanced Growth.</h2>
-            <div class="card item">
-              <p>Medium drawdown comfort supports balanced infrastructure picks. Higher-risk nuclear and robotics ideas stay smaller until confidence improves.</p>
-            </div>
-          </section>
-
-          <section class="section" id="portfolio">
-            <div class="eyebrow">Portfolio</div>
-            <h2>You may already own enough AI compute.</h2>
-            <div class="card item">
-              <p>Sample holdings NVDA, MSFT, and QQQ suggest adjacent infrastructure exposure is more useful than more mega-cap overlap.</p>
-            </div>
-            <a class="cta" href="#onboarding">Connect portfolio</a>
-          </section>
-
-          <section class="section" id="learn">
-            <div class="eyebrow">Learning loop</div>
-            <h2>The app adapts from your actions.</h2>
-            <div class="card item">
-              <p>Saves, dismissals, watchlist adds, risk updates, and connected holdings tune future picks after validation.</p>
-            </div>
-          </section>
-
+          <section class="section" id="pick"><div class="eyebrow">Top pick</div><h2>VRT fits your balanced profile.</h2><div class="card item"><p>Strategy Agent likes balanced upside. Risk Agent accepts medium risk. Portfolio Agent says it diversifies AI compute exposure.</p></div></section>
+          <section class="section" id="risk"><div class="eyebrow">Risk appetite</div><h2>Your current setting is Balanced Growth.</h2><div class="card item"><p>Medium drawdown comfort supports balanced infrastructure picks. Higher-risk ideas stay smaller until confidence improves.</p></div></section>
+          <section class="section" id="portfolio"><div class="eyebrow">Portfolio</div><h2>You may already own enough AI compute.</h2><div class="card item"><p>Connect holdings to detect overlap, concentration, and missing exposure.</p></div></section>
+          <section class="section" id="learn"><div class="eyebrow">Learning loop</div><h2>The app adapts from your actions.</h2><div class="card item"><p>Saves, dismissals, watchlist adds, risk updates, and connected holdings tune future picks after validation.</p></div></section>
           <p class="disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</p>
         </main>
       </div>
@@ -288,37 +194,42 @@
   </div>
   <div class="hint">Mobile app preview. Resize narrow or open on your phone for full-screen mode.</div>
   <script>
-    const selected = {
-      strategy: "Balanced",
-      risk: "Medium",
-      timeline: "3-12 mo",
-      portfolio: "Use sample"
-    };
+    const selected = { strategy: "Balanced", risk: "Medium", timeline: "3-12 months" };
+    const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
     function updateOutcome() {
       const fit = selected.strategy === "Aggressive" ? 82 : selected.strategy === "Conservative" ? 79 : 86;
       const riskText = selected.risk === "High" ? "Higher risk" : selected.risk === "Low" ? "Lower risk" : "Medium risk";
-      const actionText = selected.risk === "High" ? "watch for breakout" : selected.risk === "Low" ? "wait for confirmation" : "watch";
       document.getElementById("fit-score").textContent = fit;
       document.getElementById("strategy-badge").textContent = selected.strategy;
       document.getElementById("risk-badge").textContent = riskText;
-      document.getElementById("outcome-copy").textContent = `AI likes cooling and power exposure for your ${selected.strategy.toLowerCase()} profile, but marks it as ${actionText} until a buy trigger appears.`;
+      document.getElementById("timeline-copy").textContent = selected.timeline.replace("months", "mo");
     }
 
-    document.querySelectorAll(".pill[data-group]").forEach((button) => {
+    document.querySelectorAll("[data-next]").forEach((button) => {
       button.addEventListener("click", () => {
-        const group = button.dataset.group;
-        selected[group] = button.textContent.trim();
-        document.querySelectorAll(`.pill[data-group="${group}"]`).forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-        updateOutcome();
+        if (button.dataset.group) {
+          const group = button.dataset.group;
+          selected[group] = button.textContent.trim();
+          document.querySelectorAll(`[data-group="${group}"]`).forEach((item) => item.classList.remove("active"));
+          button.classList.add("active");
+          updateOutcome();
+        }
+        scrollToId(button.dataset.next);
       });
     });
 
     document.querySelectorAll("[data-tab]").forEach((link) => {
       link.addEventListener("click", () => {
+        document.querySelector(".phone").classList.add("app-mode");
         const tab = link.dataset.tab;
         document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
+      });
+    });
+
+    document.querySelectorAll("[data-enter-app]").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.querySelector(".phone").classList.add("app-mode");
       });
     });
   </script>

@@ -1,5 +1,5 @@
 export type OnboardingQuestion = {
-  id: "strategy" | "drawdown" | "timeline" | "portfolio";
+  id: "strategy" | "drawdown" | "timeline";
   label: string;
   helper: string;
   options: string[];
@@ -27,12 +27,14 @@ export const onboardingQuestions: OnboardingQuestion[] = [
     helper: "Horizon",
     options: ["0-3 mo", "3-12 mo", "12+ mo"],
     defaultOption: "3-12 mo"
-  },
-  {
-    id: "portfolio",
-    label: "Connect portfolio?",
-    helper: "Optional",
-    options: ["Use sample", "Connect"],
-    defaultOption: "Use sample"
   }
 ];
+
+export const onboardingValueStory = {
+  headline: "What if $1,000 could become $1,600?",
+  subhead: "See hypothetical upside scenarios, clear risk, and AI-ranked stock picks before you act.",
+  exampleInvestment: 1000,
+  exampleReturn: 600,
+  exampleTimeline: "3 months",
+  disclaimer: "Hypothetical example only. Not a guarantee or financial advice."
+};
