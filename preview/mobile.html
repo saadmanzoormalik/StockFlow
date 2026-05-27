@@ -49,10 +49,13 @@
     .balanced { background:#e6fffa; color:#0f766e; }
     .risk { background:#fffbeb; color:#a16207; }
     .watch { background:#ebf8ff; color:#2b6cb0; }
-    .tabs { position:sticky; top:-18px; z-index:4; display:flex; gap:8px; overflow-x:auto; margin:0 -18px; padding:10px 18px; background:rgba(255,255,255,.95); border-bottom:1px solid var(--line); backdrop-filter:blur(16px); }
+    .tabs { position:sticky; top:-18px; z-index:4; display:none; gap:8px; overflow-x:auto; margin:0 -18px; padding:10px 18px; background:rgba(255,255,255,.95); border-bottom:1px solid var(--line); backdrop-filter:blur(16px); }
+    .phone.app-mode .tabs { display:flex; }
     .tab { flex:0 0 auto; border-radius:999px; border:1px solid var(--line); padding:9px 13px; color:var(--muted); font-size:13px; font-weight:850; text-decoration:none; }
     .tab.active { background:var(--ink); border-color:var(--ink); color:#fff; }
-    .section { padding-top:18px; scroll-margin-top:70px; }
+    .section { display:none; padding-top:18px; scroll-margin-top:70px; }
+    .phone.app-mode .section.active { display:block; }
+    .phone.app-mode .screen { display:none; }
     .stack { display:grid; gap:10px; margin-top:12px; }
     .item { padding:14px; }
     .item p { margin-top:7px; color:var(--muted); font-size:13px; }
@@ -71,6 +74,8 @@
     .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
     .bottom-nav .active { background:var(--panel); color:var(--ink); }
     .disclaimer { color:var(--muted); font-size:11px; line-height:1.5; margin-top:14px; }
+    .app-disclaimer { display:none; }
+    .phone.app-mode .app-disclaimer { display:block; }
     .hint { position:fixed; left:22px; bottom:18px; color:#334155; font-size:13px; }
     @media (max-width:520px){ .stage{padding:0}.phone{width:100%;height:100vh;border:0;border-radius:0}.hint{display:none}.screen{min-height:calc(100vh - 150px)} }
   </style>
@@ -178,7 +183,7 @@
             <a class="tab" href="#improve" data-tab="improve">Improve</a>
           </nav>
 
-          <section class="section" id="discover">
+          <section class="section active" id="discover">
             <div class="eyebrow">Discover</div>
             <h2>Find the one market signal that matters today.</h2>
             <div class="process-strip">
@@ -239,7 +244,7 @@
               <button class="feature-button"><strong>Update model candidate</strong><small>Create a governed learning signal for evaluation before deployment.</small></button>
             </div>
           </section>
-          <p class="disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</p>
+          <p class="disclaimer app-disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</p>
         </main>
       </div>
       <nav class="bottom-nav">
@@ -261,6 +266,7 @@
     function resetToOnboarding() {
       phone.classList.remove("app-mode");
       document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === "discover"));
+      document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === "discover"));
       if (window.location.hash) {
         history.replaceState(null, "", window.location.pathname);
       }
@@ -277,6 +283,14 @@
       document.getElementById("timeline-copy").textContent = selected.timeline.replace("months", "mo");
     }
 
+    function activateAppTab(tab) {
+      phone.classList.add("app-mode");
+      document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
+      document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === tab));
+      history.replaceState(null, "", `#${tab}`);
+      if (main) main.scrollTop = 0;
+    }
+
     document.querySelectorAll("[data-next]").forEach((button) => {
       button.addEventListener("click", () => {
         if (button.dataset.group) {
@@ -291,20 +305,21 @@
     });
 
     document.querySelectorAll("[data-tab]").forEach((link) => {
-      link.addEventListener("click", () => {
-        phone.classList.add("app-mode");
-        const tab = link.dataset.tab;
-        document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        activateAppTab(link.dataset.tab);
       });
     });
 
     document.querySelectorAll("[data-enter-app]").forEach((link) => {
-      link.addEventListener("click", () => {
-        phone.classList.add("app-mode");
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        activateAppTab("discover");
       });
     });
 
-    window.addEventListener("load", resetToOnboarding);
+    resetToOnboarding();
+    window.addEventListener("pageshow", resetToOnboarding);
   </script>
 </body>
 </html>
