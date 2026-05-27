@@ -55,7 +55,7 @@ Primary mobile navigation should stay focused on three bottom actions: Discover,
 
 Discover should open with a personalized adaptive summary first, then a simple ordered set of stock options, then a simplified global market/news read underneath. The news layer is not a feed of articles; it is a short translation of major macro and market signals into what matters for the user's next stock decision.
 
-The top of Discover should create an AI wow moment: show a compact daily intelligence run with visible steps such as scanning market signals, matching the user profile, ranking exposure, and generating the user's edge before presenting the final summary.
+The top Discover summary should feel AI-native without adding extra cards: use compact synthesis language, signal counts, ranked-pick context, and fit scores inside the existing insight card.
 
 Code entry points:
 
