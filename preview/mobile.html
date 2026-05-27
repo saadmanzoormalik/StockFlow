@@ -69,6 +69,15 @@
     .feature-button small { flex:0 0 auto; border-radius:999px; background:var(--panel); padding:5px 8px; color:var(--muted); font-size:11px; font-weight:850; line-height:1; }
     .feature-button.primary { background:var(--ink); border-color:var(--ink); color:#fff; }
     .feature-button.primary small { background:rgba(255,255,255,.14); color:#fff; }
+    .personal-brief { margin-top:12px; padding:16px; background:var(--ink); color:#fff; }
+    .personal-brief p { color:#d7e0e8; font-size:13px; }
+    .pulse-row { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+    .pulse { border-radius:14px; background:rgba(255,255,255,.1); padding:10px; }
+    .pulse span { display:block; color:#b8c5d0; font-size:10px; font-weight:850; text-transform:uppercase; }
+    .pulse strong { display:block; margin-top:3px; font-size:14px; }
+    .news-card { padding:13px 14px; }
+    .news-card p { margin-top:6px; color:var(--muted); font-size:13px; }
+    .source-line { color:var(--muted); font-size:11px; font-weight:850; text-transform:uppercase; }
     .bottom-nav { position:absolute; inset:auto 0 0; display:none; grid-template-columns:repeat(3,1fr); gap:2px; border-top:1px solid var(--line); background:rgba(255,255,255,.96); padding:8px 8px 12px; backdrop-filter:blur(18px); }
     .phone.app-mode .bottom-nav { display:grid; }
     .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
@@ -188,14 +197,30 @@
 
           <section class="section active" id="discover">
             <div class="eyebrow">Discover</div>
-            <h2>Find the one market signal that matters today.</h2>
+            <h2>Your market edge today.</h2>
+            <article class="card personal-brief">
+              <div class="row">
+                <div>
+                  <h3>Power is the story. VRT is your watch.</h3>
+                  <p style="margin-top:8px">For your balanced profile, AI energy demand is the cleanest signal. Stay excited, but wait for confirmation before acting.</p>
+                </div>
+                <span class="badge balanced">86 fit</span>
+              </div>
+              <div class="pulse-row">
+                <div class="pulse"><span>Mood</span><strong>Positive</strong></div>
+                <div class="pulse"><span>Action</span><strong>Watch</strong></div>
+                <div class="pulse"><span>Why</span><strong>Power</strong></div>
+              </div>
+            </article>
             <div class="feature-grid">
               <button class="feature-button primary"><strong>Brief me</strong><small>2 min</small></button>
               <button class="feature-button"><strong>What moved?</strong><small>Power</small></button>
               <button class="feature-button"><strong>What is missing?</strong><small>Proof</small></button>
             </div>
             <div class="stack">
-              <article class="card item"><div class="row"><h3>VRT still fits</h3><span class="badge watch">Watch</span></div><p>AI power demand is stronger. Buy trigger is not confirmed yet.</p></article>
+              <article class="card news-card"><div class="source-line">Global market read</div><div class="row"><h3>AI demand is shifting from chips to electricity.</h3><span class="badge watch">Needle</span></div><p>Top financial media and economic commentary would be summarized here into one takeaway: power, grid, and cooling are becoming the next bottleneck.</p></article>
+              <article class="card news-card"><div class="source-line">US market signal</div><div class="row"><h3>Rates and CAPEX matter today.</h3><span class="badge risk">Watch</span></div><p>If rates stay firm, high-multiple stocks need stronger proof. Your profile favors profitable infrastructure names over pure hype.</p></article>
+              <article class="card news-card"><div class="source-line">Personal translation</div><div class="row"><h3>What this means for you.</h3><span class="badge balanced">Simple</span></div><p>Do not chase every AI headline. Watch VRT, compare power names, and wait for backlog, guidance, or volume confirmation.</p></article>
             </div>
           </section>
           <section class="section" id="decide">

@@ -53,6 +53,8 @@ In-app actions should stay deliberately minimal: short command labels, tiny sign
 
 Primary mobile navigation should stay focused on three bottom actions: Discover, Decide, and Connect. Secondary surfaces such as profile, risk settings, learning, subscription, notifications, privacy, and account deletion live behind the side Menu tab.
 
+Discover should open with a personalized adaptive summary first, then a simplified global market/news read underneath. The news layer is not a feed of articles; it is a short translation of major macro and market signals into what matters for the user's next stock decision.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
