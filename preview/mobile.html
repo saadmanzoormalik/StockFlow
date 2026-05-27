@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stock Pick Check - Mobile Preview</title>
+  <script>
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  </script>
   <style>
     :root { --ink:#15202b; --muted:#667685; --line:#e3e9ef; --panel:#f7fafc; --green:#147d64; --blue:#2b6cb0; --amber:#b7791f; }
     * { box-sizing: border-box; }
@@ -249,9 +254,11 @@
     const selected = { strategy: "Balanced", risk: "Medium", timeline: "3-12 months" };
     const main = document.querySelector("main");
     const phone = document.querySelector(".phone");
+    let hasEnteredApp = false;
     const scrollToId = (id, behavior = "smooth") => document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
 
     function resetToOnboarding() {
+      hasEnteredApp = false;
       phone.classList.remove("app-mode");
       document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === "discover"));
       document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === "discover"));
@@ -272,6 +279,7 @@
     }
 
     function activateAppTab(tab) {
+      hasEnteredApp = true;
       phone.classList.add("app-mode");
       document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
       document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === tab));
@@ -310,6 +318,9 @@
     requestAnimationFrame(resetToOnboarding);
     setTimeout(resetToOnboarding, 80);
     window.addEventListener("pageshow", resetToOnboarding);
+    window.addEventListener("hashchange", () => {
+      if (!hasEnteredApp) resetToOnboarding();
+    });
   </script>
 </body>
 </html>
