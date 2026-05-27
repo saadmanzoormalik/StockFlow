@@ -57,6 +57,8 @@ Discover should open with a personalized adaptive summary first, then a simple o
 
 The top Discover summary should feel AI-native without adding extra cards: use compact synthesis language, signal counts, ranked-pick context, and fit scores inside the existing insight card.
 
+The core loop should be subtle and sequential: Discover surfaces the personalized insight, Decide turns the selected idea into a watch/save/compare/pass choice, and Connect validates that choice against external brokerage context such as Robinhood, Schwab, Fidelity, E*TRADE, Webull, or another provider.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.

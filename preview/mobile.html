@@ -86,6 +86,11 @@
     .stock-copy h3 { display:flex; align-items:center; gap:7px; }
     .stock-copy p { margin-top:5px; color:var(--muted); font-size:13px; }
     .stock-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+    .flow-hint { margin-top:12px; border-radius:16px; background:var(--panel); padding:12px; color:var(--muted); font-size:13px; font-weight:750; }
+    .decision-card { padding:15px; }
+    .decision-card p { margin-top:7px; color:var(--muted); font-size:13px; }
+    .provider-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+    .provider { display:flex; min-height:54px; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--line); border-radius:16px; background:#fff; padding:0 12px; font-weight:900; }
     .bottom-nav { position:absolute; inset:auto 0 0; display:none; grid-template-columns:repeat(3,1fr); gap:2px; border-top:1px solid var(--line); background:rgba(255,255,255,.96); padding:8px 8px 12px; backdrop-filter:blur(18px); }
     .phone.app-mode .bottom-nav { display:grid; }
     .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
@@ -241,14 +246,19 @@
           </section>
           <section class="section" id="decide">
             <div class="eyebrow">Decide</div>
-            <h2>Turn the signal into a pick, pass, or compare decision.</h2>
-            <div class="card item"><p>VRT is the balanced pick. Medium risk. Best use: watchlist first, act after confirmation.</p></div>
-            <div class="feature-grid">
-              <button class="feature-button primary"><strong>Review VRT</strong><small>Top</small></button>
-              <button class="feature-button"><strong>Save</strong><small>Learn</small></button>
-              <button class="feature-button"><strong>Compare</strong><small>Vs 2</small></button>
-              <button class="feature-button"><strong>Pass</strong><small>Skip</small></button>
+            <h2>Now choose what to do with VRT.</h2>
+            <div class="card decision-card">
+              <div class="row"><h3>Selected from Discover</h3><span class="badge balanced">86 fit</span></div>
+              <p>VRT is the top balanced pick from today's power-infrastructure signal. The smart move is not blind buying; it is deciding your next action.</p>
+              <div class="stock-meta"><span class="badge watch">Watch</span><span class="badge balanced">12-28%</span><span class="badge risk">Medium</span></div>
             </div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Watch VRT</strong><small>Smart</small></button>
+              <button class="feature-button"><strong>Compare ETN</strong><small>Safer</small></button>
+              <button class="feature-button"><strong>Save idea</strong><small>Learn</small></button>
+              <button class="feature-button"><strong>Pass today</strong><small>Skip</small></button>
+            </div>
+            <div class="flow-hint">Next: connect your brokerage so the app checks whether VRT helps or overlaps with what you already own.</div>
           </section>
           <section class="section" id="protect">
             <div class="eyebrow">Protect</div>
@@ -262,12 +272,23 @@
           </section>
           <section class="section" id="connect">
             <div class="eyebrow">Connect</div>
-            <h2>Make picks personal with portfolio context.</h2>
-            <div class="card item"><p>You may already own enough AI compute. Connect to reveal overlap and gaps.</p></div>
+            <h2>Connect your portfolio before you act.</h2>
+            <div class="card decision-card">
+              <div class="row"><h3>Why connect?</h3><span class="badge watch">Optional</span></div>
+              <p>The app checks whether VRT adds new exposure or just doubles down on AI names you already own.</p>
+            </div>
+            <div class="provider-grid">
+              <button class="provider">Robinhood <span class="badge watch">Fast</span></button>
+              <button class="provider">Schwab <span class="badge balanced">Broker</span></button>
+              <button class="provider">Fidelity <span class="badge balanced">Broker</span></button>
+              <button class="provider">E*TRADE <span class="badge watch">Broker</span></button>
+              <button class="provider">Webull <span class="badge risk">Active</span></button>
+              <button class="provider">Other <span class="badge watch">More</span></button>
+            </div>
             <div class="feature-grid">
-              <button class="feature-button primary"><strong>Connect</strong><small>Secure</small></button>
-              <button class="feature-button"><strong>Overlap</strong><small>AI</small></button>
-              <button class="feature-button"><strong>Gaps</strong><small>Power</small></button>
+              <button class="feature-button primary"><strong>Connect securely</strong><small>Read</small></button>
+              <button class="feature-button"><strong>Check overlap</strong><small>AI</small></button>
+              <button class="feature-button"><strong>Find gaps</strong><small>Power</small></button>
             </div>
           </section>
           <section class="section" id="improve">
