@@ -13,8 +13,8 @@ export const productProcesses: ProductProcess[] = [
     id: "discover",
     label: "Discover",
     promise: "Find the one signal that matters this morning.",
-    primaryAction: "Open briefing",
-    secondaryActions: ["What changed", "Missing signal"],
+    primaryAction: "Brief me",
+    secondaryActions: ["What moved?", "What is missing?"],
     features: ["Morning nudge", "News consensus", "Algorithm factor delta"],
     decisionOutput: "A clear reason to watch, ignore, or investigate today's top setup."
   },
@@ -22,8 +22,8 @@ export const productProcesses: ProductProcess[] = [
     id: "decide",
     label: "Decide",
     promise: "Turn the signal into a simple pick, pass, or compare decision.",
-    primaryAction: "Review top pick",
-    secondaryActions: ["Save pick", "Compare ideas"],
+    primaryAction: "Review pick",
+    secondaryActions: ["Save", "Compare"],
     features: ["Top stock pick", "Expected return range", "Agentic rationale"],
     decisionOutput: "A probability-weighted recommendation matched to the user's profile."
   },
@@ -31,8 +31,8 @@ export const productProcesses: ProductProcess[] = [
     id: "protect",
     label: "Protect",
     promise: "Keep the user inside their real risk appetite.",
-    primaryAction: "Check risk fit",
-    secondaryActions: ["View bear case", "Adjust comfort"],
+    primaryAction: "Risk fit",
+    secondaryActions: ["Bear case", "Retune risk"],
     features: ["Risk appetite meter", "Drawdown comfort", "Key risk alerts"],
     decisionOutput: "A guardrail that can shrink, delay, or escalate a recommendation."
   },
@@ -40,8 +40,8 @@ export const productProcesses: ProductProcess[] = [
     id: "connect",
     label: "Connect",
     promise: "Make picks personal by reading the portfolio context.",
-    primaryAction: "Connect portfolio",
-    secondaryActions: ["Check overlap", "Find missing exposure"],
+    primaryAction: "Connect",
+    secondaryActions: ["Overlap", "Gaps"],
     features: ["Provider connection", "Concentration check", "Exposure gaps"],
     decisionOutput: "A portfolio-aware pick that avoids accidental overconcentration."
   },
@@ -49,8 +49,8 @@ export const productProcesses: ProductProcess[] = [
     id: "improve",
     label: "Improve",
     promise: "Use every save, skip, and override to improve future picks.",
-    primaryAction: "Tune my feed",
-    secondaryActions: ["Dismiss idea", "Update model candidate"],
+    primaryAction: "Tune feed",
+    secondaryActions: ["Less like this", "More like this"],
     features: ["Feedback capture", "Personalization weights", "Evaluation gate"],
     decisionOutput: "A governed learning signal for better personalization and model updates."
   }

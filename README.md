@@ -49,6 +49,8 @@ For MVP testing, the mobile preview intentionally resets to onboarding on every 
 
 Onboarding hook -> Apple/Google account placeholder -> three personalization questions -> AI-generated sample outcome -> 7-day trial CTA -> app processes.
 
+In-app actions should stay deliberately minimal: short command labels, tiny signal badges, and only one supporting sentence per panel. The app should feel like a native decision assistant, not a compressed research report.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
