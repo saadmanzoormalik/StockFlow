@@ -78,6 +78,12 @@
     .news-card { padding:13px 14px; }
     .news-card p { margin-top:6px; color:var(--muted); font-size:13px; }
     .source-line { color:var(--muted); font-size:11px; font-weight:850; text-transform:uppercase; }
+    .stock-option { padding:13px 14px; }
+    .rank-dot { display:grid; width:28px; height:28px; flex:0 0 auto; place-items:center; border-radius:999px; background:var(--ink); color:#fff; font-size:12px; font-weight:950; }
+    .stock-copy { flex:1; min-width:0; }
+    .stock-copy h3 { display:flex; align-items:center; gap:7px; }
+    .stock-copy p { margin-top:5px; color:var(--muted); font-size:13px; }
+    .stock-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
     .bottom-nav { position:absolute; inset:auto 0 0; display:none; grid-template-columns:repeat(3,1fr); gap:2px; border-top:1px solid var(--line); background:rgba(255,255,255,.96); padding:8px 8px 12px; backdrop-filter:blur(18px); }
     .phone.app-mode .bottom-nav { display:grid; }
     .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
@@ -201,23 +207,30 @@
             <article class="card personal-brief">
               <div class="row">
                 <div>
-                  <h3>Power is the story. VRT is your watch.</h3>
-                  <p style="margin-top:8px">For your balanced profile, AI energy demand is the cleanest signal. Stay excited, but wait for confirmation before acting.</p>
+                  <h3>Power is the story. You have options.</h3>
+                  <p style="margin-top:8px">For your balanced profile, AI energy demand is the cleanest signal. VRT leads, but the app is watching several cleaner setups.</p>
                 </div>
                 <span class="badge balanced">86 fit</span>
               </div>
               <div class="pulse-row">
                 <div class="pulse"><span>Mood</span><strong>Positive</strong></div>
-                <div class="pulse"><span>Action</span><strong>Watch</strong></div>
-                <div class="pulse"><span>Why</span><strong>Power</strong></div>
+                <div class="pulse"><span>Action</span><strong>Rank</strong></div>
+                <div class="pulse"><span>Theme</span><strong>Power</strong></div>
               </div>
             </article>
-            <div class="feature-grid">
-              <button class="feature-button primary"><strong>Brief me</strong><small>2 min</small></button>
-              <button class="feature-button"><strong>What moved?</strong><small>Power</small></button>
-              <button class="feature-button"><strong>What is missing?</strong><small>Proof</small></button>
-            </div>
             <div class="stack">
+              <article class="card stock-option">
+                <div class="row"><div class="rank-dot">1</div><div class="stock-copy"><h3>VRT <span class="badge balanced">Best fit</span></h3><p>Data-center power and cooling. Balanced upside, medium risk.</p><div class="stock-meta"><span class="badge watch">Watch</span><span class="badge balanced">12-28%</span><span class="badge risk">3-12 mo</span></div></div></div>
+              </article>
+              <article class="card stock-option">
+                <div class="row"><div class="rank-dot">2</div><div class="stock-copy"><h3>ETN <span class="badge watch">Safer</span></h3><p>Established electrical infrastructure. Lower drama, steadier exposure.</p><div class="stock-meta"><span class="badge watch">Compare</span><span class="badge balanced">8-18%</span><span class="badge risk">Lower risk</span></div></div></div>
+              </article>
+              <article class="card stock-option">
+                <div class="row"><div class="rank-dot">3</div><div class="stock-copy"><h3>PWR <span class="badge watch">Grid</span></h3><p>Grid buildout and utility infrastructure. Strong theme fit.</p><div class="stock-meta"><span class="badge watch">Watch</span><span class="badge balanced">10-22%</span><span class="badge risk">Medium</span></div></div></div>
+              </article>
+              <article class="card stock-option">
+                <div class="row"><div class="rank-dot">4</div><div class="stock-copy"><h3>CEG <span class="badge risk">Energy</span></h3><p>Electricity generation and nuclear optionality. Powerful, more macro-sensitive.</p><div class="stock-meta"><span class="badge watch">Explore</span><span class="badge balanced">9-24%</span><span class="badge risk">Higher</span></div></div></div>
+              </article>
               <article class="card news-card"><div class="source-line">Global market read</div><div class="row"><h3>AI demand is shifting from chips to electricity.</h3><span class="badge watch">Needle</span></div><p>Top financial media and economic commentary would be summarized here into one takeaway: power, grid, and cooling are becoming the next bottleneck.</p></article>
               <article class="card news-card"><div class="source-line">US market signal</div><div class="row"><h3>Rates and CAPEX matter today.</h3><span class="badge risk">Watch</span></div><p>If rates stay firm, high-multiple stocks need stronger proof. Your profile favors profitable infrastructure names over pure hype.</p></article>
               <article class="card news-card"><div class="source-line">Personal translation</div><div class="row"><h3>What this means for you.</h3><span class="badge balanced">Simple</span></div><p>Do not chase every AI headline. Watch VRT, compare power names, and wait for backlog, guidance, or volume confirmation.</p></article>
@@ -322,8 +335,13 @@
       phone.classList.add("app-mode");
       document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
       document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === tab));
-      history.replaceState(null, "", `#${tab}`);
-      if (main) main.scrollTop = 0;
+      history.replaceState(null, "", window.location.pathname);
+      if (main) main.scrollTo({ top: 0, behavior: "auto" });
+      document.getElementById(tab)?.scrollIntoView({ behavior: "auto", block: "start" });
+      requestAnimationFrame(() => {
+        if (main) main.scrollTo({ top: 0, behavior: "auto" });
+        document.getElementById(tab)?.scrollIntoView({ behavior: "auto", block: "start" });
+      });
     }
 
     document.querySelectorAll("[data-next]").forEach((button) => {
