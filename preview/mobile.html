@@ -71,6 +71,18 @@
     .feature-button.primary small { background:rgba(255,255,255,.14); color:#fff; }
     .personal-brief { margin-top:12px; padding:16px; background:var(--ink); color:#fff; }
     .personal-brief p { color:#d7e0e8; font-size:13px; }
+    .ai-core { position:relative; margin-top:12px; padding:14px; overflow:hidden; background:#0f172a; color:#fff; }
+    .ai-core:before { content:""; position:absolute; inset:-70px -30px auto auto; width:160px; height:160px; border-radius:999px; background:radial-gradient(circle, rgba(20,125,100,.45), transparent 64%); }
+    .ai-core > * { position:relative; }
+    .ai-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .ai-chip { border-radius:999px; background:rgba(255,255,255,.1); padding:6px 9px; color:#d7e0e8; font-size:11px; font-weight:900; }
+    .ai-steps { display:grid; gap:8px; margin-top:12px; }
+    .ai-step { display:grid; grid-template-columns:22px 1fr auto; align-items:center; gap:8px; border-radius:13px; background:rgba(255,255,255,.075); padding:9px; }
+    .step-dot { display:grid; width:22px; height:22px; place-items:center; border-radius:999px; background:#14b8a6; color:#052e2b; font-size:11px; font-weight:950; }
+    .ai-step strong { display:block; font-size:13px; }
+    .ai-step span:last-child { color:#b8c5d0; font-size:11px; font-weight:850; }
+    .ai-bar { height:5px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.12); margin-top:12px; }
+    .ai-bar span { display:block; width:86%; height:100%; border-radius:999px; background:linear-gradient(90deg,#14b8a6,#93c5fd,#fef3c7); }
     .pulse-row { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
     .pulse { border-radius:14px; background:rgba(255,255,255,.1); padding:10px; }
     .pulse span { display:block; color:#b8c5d0; font-size:10px; font-weight:850; text-transform:uppercase; }
@@ -204,6 +216,19 @@
           <section class="section active" id="discover">
             <div class="eyebrow">Discover</div>
             <h2>Your market edge today.</h2>
+            <article class="card ai-core">
+              <div class="ai-topline">
+                <h3>Daily AI run complete</h3>
+                <span class="ai-chip">07:42 AM</span>
+              </div>
+              <div class="ai-steps">
+                <div class="ai-step"><span class="step-dot">1</span><strong>Scanned market signals</strong><span>1,248</span></div>
+                <div class="ai-step"><span class="step-dot">2</span><strong>Matched your risk profile</strong><span>Balanced</span></div>
+                <div class="ai-step"><span class="step-dot">3</span><strong>Ranked power exposure</strong><span>4 picks</span></div>
+                <div class="ai-step"><span class="step-dot">4</span><strong>Built today's edge</strong><span>86 fit</span></div>
+              </div>
+              <div class="ai-bar"><span></span></div>
+            </article>
             <article class="card personal-brief">
               <div class="row">
                 <div>
@@ -336,12 +361,14 @@
       document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item.dataset.tab === tab));
       document.querySelectorAll(".section").forEach((section) => section.classList.toggle("active", section.id === tab));
       history.replaceState(null, "", window.location.pathname);
-      if (main) main.scrollTo({ top: 0, behavior: "auto" });
-      document.getElementById(tab)?.scrollIntoView({ behavior: "auto", block: "start" });
+      const activeSection = document.getElementById(tab);
+      if (main && activeSection) main.scrollTo({ top: activeSection.offsetTop - 8, behavior: "auto" });
       requestAnimationFrame(() => {
-        if (main) main.scrollTo({ top: 0, behavior: "auto" });
-        document.getElementById(tab)?.scrollIntoView({ behavior: "auto", block: "start" });
+        if (main && activeSection) main.scrollTo({ top: activeSection.offsetTop - 8, behavior: "auto" });
       });
+      setTimeout(() => {
+        if (main && activeSection) main.scrollTo({ top: activeSection.offsetTop - 8, behavior: "auto" });
+      }, 120);
     }
 
     document.querySelectorAll("[data-next]").forEach((button) => {
