@@ -35,9 +35,20 @@ The product is a top stock pick app first. Rotation is one intelligence signal u
 
 User inputs -> risk appetite inference -> strategy fit -> portfolio context -> personalized top picks -> user action -> learning event -> validated model update.
 
+## Mobile Product Processes
+
+The mobile app is organized around five distinct user processes instead of generic dashboard tabs:
+
+- Discover: morning nudge, news consensus, and the one signal that matters today.
+- Decide: top pick review, expected return range, timeline, confidence, and save/pass/compare actions.
+- Protect: risk appetite, bear case, drawdown comfort, and alert guardrails.
+- Connect: portfolio provider connection, concentration checks, overlap detection, and missing exposure.
+- Improve: feedback capture, personalization weights, evaluation gates, and governed model update candidates.
+
 Code entry points:
 
 - `lib/personalization.ts` computes the demo investor profile, personalized scores, agent rationale, and learning-loop summary.
+- `data/product-processes.ts` defines the five mobile product processes and their unique feature/action subsets.
 - `app/api/personalized-picks/route.ts` returns personalized top picks from onboarding/profile inputs.
 - `app/api/learning/route.ts` records learning events for recursive improvement.
 - `app/api/agents/route.ts` describes the agent workflow roles and evaluation criteria.

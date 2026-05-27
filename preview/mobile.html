@@ -56,6 +56,16 @@
     .stack { display:grid; gap:10px; margin-top:12px; }
     .item { padding:14px; }
     .item p { margin-top:7px; color:var(--muted); font-size:13px; }
+    .process-strip { display:grid; grid-template-columns:repeat(5,minmax(112px,1fr)); gap:9px; overflow-x:auto; margin:14px -18px 0; padding:0 18px 3px; }
+    .process-card { min-width:112px; border:1px solid var(--line); border-radius:18px; background:#fff; padding:12px; text-decoration:none; color:var(--ink); }
+    .process-card strong { display:block; font-size:13px; }
+    .process-card span { display:block; margin-top:5px; color:var(--muted); font-size:11px; line-height:1.35; }
+    .feature-grid { display:grid; gap:9px; margin-top:12px; }
+    .feature-button { width:100%; min-height:64px; border:1px solid var(--line); border-radius:16px; background:#fff; padding:12px; text-align:left; color:var(--ink); }
+    .feature-button strong { display:block; font-size:14px; }
+    .feature-button small { display:block; margin-top:5px; color:var(--muted); font-size:12px; line-height:1.35; }
+    .feature-button.primary { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .feature-button.primary small { color:#d6dee6; }
     .bottom-nav { position:absolute; inset:auto 0 0; display:none; grid-template-columns:repeat(5,1fr); gap:2px; border-top:1px solid var(--line); background:rgba(255,255,255,.96); padding:8px 8px 12px; backdrop-filter:blur(18px); }
     .phone.app-mode .bottom-nav { display:grid; }
     .bottom-nav a { display:flex; min-height:54px; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; color:var(--muted); font-size:10.5px; font-weight:850; text-decoration:none; }
@@ -156,39 +166,88 @@
               </div>
               <p class="sub" id="outcome-copy" style="margin-top:12px">Hypothetical: a $1,000 position moving 12%-28% would imply $120-$280 upside before losses, taxes, and fees.</p>
             </div>
-            <a class="cta" href="#today" data-enter-app>Start 7-day free trial</a>
-            <a class="secondary" href="#today" data-enter-app>Enter app</a>
+            <a class="cta" href="#discover" data-enter-app>Start 7-day free trial</a>
+            <a class="secondary" href="#discover" data-enter-app>Enter app</a>
           </section>
 
           <nav class="tabs">
-            <a class="tab active" href="#today" data-tab="today">Today</a>
-            <a class="tab" href="#pick" data-tab="pick">Pick</a>
-            <a class="tab" href="#risk" data-tab="risk">Risk</a>
-            <a class="tab" href="#portfolio" data-tab="portfolio">Portfolio</a>
-            <a class="tab" href="#learn" data-tab="learn">Learn</a>
+            <a class="tab active" href="#discover" data-tab="discover">Discover</a>
+            <a class="tab" href="#decide" data-tab="decide">Decide</a>
+            <a class="tab" href="#protect" data-tab="protect">Protect</a>
+            <a class="tab" href="#connect" data-tab="connect">Connect</a>
+            <a class="tab" href="#improve" data-tab="improve">Improve</a>
           </nav>
 
-          <section class="section" id="today">
-            <div class="eyebrow">Morning briefing</div>
-            <h2>Should VRT stay on your watchlist today?</h2>
+          <section class="section" id="discover">
+            <div class="eyebrow">Discover</div>
+            <h2>Find the one market signal that matters today.</h2>
+            <div class="process-strip">
+              <a class="process-card" href="#discover" data-tab="discover"><strong>Discover</strong><span>Morning signal</span></a>
+              <a class="process-card" href="#decide" data-tab="decide"><strong>Decide</strong><span>Pick or pass</span></a>
+              <a class="process-card" href="#protect" data-tab="protect"><strong>Protect</strong><span>Risk guardrail</span></a>
+              <a class="process-card" href="#connect" data-tab="connect"><strong>Connect</strong><span>Portfolio context</span></a>
+              <a class="process-card" href="#improve" data-tab="improve"><strong>Improve</strong><span>Learning loop</span></a>
+            </div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Open briefing</strong><small>One morning decision, not a wall of finance news.</small></button>
+              <button class="feature-button"><strong>What changed?</strong><small>Show the model factor that moved since yesterday.</small></button>
+              <button class="feature-button"><strong>Missing signal</strong><small>Reveal what the app still needs before raising conviction.</small></button>
+            </div>
             <div class="stack">
               <article class="card item"><div class="row"><h3>Your market briefing is ready</h3><span class="badge watch">Watch</span></div><p>VRT still fits your profile. AI power demand strengthened, but no buy trigger yet.</p></article>
               <article class="card item"><div class="row"><h3>What changed</h3><span class="badge balanced">2 min</span></div><p>Model factor: bottleneck score plus portfolio diversification. Missing: live holdings sync and catalyst confirmation.</p></article>
             </div>
           </section>
-          <section class="section" id="pick"><div class="eyebrow">Top pick</div><h2>VRT fits your balanced profile.</h2><div class="card item"><p>Strategy Agent likes balanced upside. Risk Agent accepts medium risk. Portfolio Agent says it diversifies AI compute exposure.</p></div></section>
-          <section class="section" id="risk"><div class="eyebrow">Risk appetite</div><h2>Your current setting is Balanced Growth.</h2><div class="card item"><p>Medium drawdown comfort supports balanced infrastructure picks. Higher-risk ideas stay smaller until confidence improves.</p></div></section>
-          <section class="section" id="portfolio"><div class="eyebrow">Portfolio</div><h2>You may already own enough AI compute.</h2><div class="card item"><p>Connect holdings to detect overlap, concentration, and missing exposure.</p></div></section>
-          <section class="section" id="learn"><div class="eyebrow">Learning loop</div><h2>The app adapts from your actions.</h2><div class="card item"><p>Saves, dismissals, watchlist adds, risk updates, and connected holdings tune future picks after validation.</p></div></section>
+          <section class="section" id="decide">
+            <div class="eyebrow">Decide</div>
+            <h2>Turn the signal into a pick, pass, or compare decision.</h2>
+            <div class="card item"><p>Decision Agent likes VRT for balanced upside. Risk Agent accepts medium risk. Portfolio Agent says it diversifies AI compute exposure.</p></div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Review top pick</strong><small>Thesis, expected range, timeline, catalyst, and key risk.</small></button>
+              <button class="feature-button"><strong>Save pick</strong><small>Add to watchlist and increase similar future recommendations.</small></button>
+              <button class="feature-button"><strong>Compare ideas</strong><small>Place VRT against another balanced infrastructure candidate.</small></button>
+              <button class="feature-button"><strong>Pass today</strong><small>Tell the learning loop this setup is not compelling right now.</small></button>
+            </div>
+          </section>
+          <section class="section" id="protect">
+            <div class="eyebrow">Protect</div>
+            <h2>Keep the recommendation inside your real risk appetite.</h2>
+            <div class="card item"><p>Medium drawdown comfort supports balanced infrastructure picks. Higher-risk ideas stay smaller until confidence improves.</p></div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Check risk fit</strong><small>Match the idea to volatility, timeline, and downside tolerance.</small></button>
+              <button class="feature-button"><strong>View bear case</strong><small>See what could break the thesis before you act.</small></button>
+              <button class="feature-button"><strong>Adjust comfort</strong><small>Shift from balanced to conservative or aggressive in one tap.</small></button>
+            </div>
+          </section>
+          <section class="section" id="connect">
+            <div class="eyebrow">Connect</div>
+            <h2>Make picks personal with portfolio context.</h2>
+            <div class="card item"><p>You may already own enough AI compute. Connect holdings to detect overlap, concentration, and missing exposure.</p></div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Connect portfolio</strong><small>Use provider connections to personalize picks around holdings.</small></button>
+              <button class="feature-button"><strong>Check overlap</strong><small>Detect if a new pick doubles down on what you already own.</small></button>
+              <button class="feature-button"><strong>Find missing exposure</strong><small>Surface gaps such as power, grid, or cooling infrastructure.</small></button>
+            </div>
+          </section>
+          <section class="section" id="improve">
+            <div class="eyebrow">Improve</div>
+            <h2>The system gets sharper from your actions.</h2>
+            <div class="card item"><p>Saves, dismissals, watchlist adds, risk updates, and connected holdings tune future picks after validation.</p></div>
+            <div class="feature-grid">
+              <button class="feature-button primary"><strong>Tune my feed</strong><small>Use behavior to adapt the daily briefing and stock ranking.</small></button>
+              <button class="feature-button"><strong>Dismiss idea</strong><small>Reduce recommendations with the same traits in future sessions.</small></button>
+              <button class="feature-button"><strong>Update model candidate</strong><small>Create a governed learning signal for evaluation before deployment.</small></button>
+            </div>
+          </section>
           <p class="disclaimer">This is educational information, not financial advice. Investing involves risk. Past performance does not guarantee future results.</p>
         </main>
       </div>
       <nav class="bottom-nav">
-        <a class="active" href="#today" data-tab="today">⌂<span>Today</span></a>
-        <a href="#pick" data-tab="pick">◆<span>Pick</span></a>
-        <a href="#risk" data-tab="risk">◐<span>Risk</span></a>
-        <a href="#portfolio" data-tab="portfolio">▣<span>Portfolio</span></a>
-        <a href="#learn" data-tab="learn">↻<span>Learn</span></a>
+        <a class="active" href="#discover" data-tab="discover">⌂<span>Discover</span></a>
+        <a href="#decide" data-tab="decide">◆<span>Decide</span></a>
+        <a href="#protect" data-tab="protect">◐<span>Protect</span></a>
+        <a href="#connect" data-tab="connect">▣<span>Connect</span></a>
+        <a href="#improve" data-tab="improve">↻<span>Improve</span></a>
       </nav>
     </div>
   </div>

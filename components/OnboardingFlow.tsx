@@ -136,10 +136,10 @@ export function OnboardingFlow() {
                 Hypothetical story: a $1,000 position with a 12%-28% move would imply $120-$280 upside before losses, taxes, and fees. Higher examples are possible historically, never guaranteed.
               </p>
             </div>
-            <Link href="/dashboard#today" className="flex h-12 w-full items-center justify-center rounded-lg bg-ink font-semibold text-white dark:bg-white dark:text-ink">
+            <Link href="/dashboard#discover" className="flex h-12 w-full items-center justify-center rounded-lg bg-ink font-semibold text-white dark:bg-white dark:text-ink">
               Start 7-day free trial
             </Link>
-            <Link href="/dashboard#today" className="flex h-12 w-full items-center justify-center rounded-lg border border-line bg-white font-semibold text-ink dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+            <Link href="/dashboard#discover" className="flex h-12 w-full items-center justify-center rounded-lg border border-line bg-white font-semibold text-ink dark:border-slate-700 dark:bg-slate-900 dark:text-white">
               Enter app
             </Link>
           </div>
