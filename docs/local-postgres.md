@@ -37,10 +37,36 @@ psql --version
 createdb --version
 ```
 
+## Project-Local Server
+
+For this workspace, StockFlow is running on a project-local PostgreSQL cluster because Postgres.app is already using port `5432`.
+
+Current connection:
+
+```text
+Host: localhost
+Port: 5433
+Database: stockflow
+User: saadmanzoor
+Password: blank
+```
+
+Start the project-local server:
+
+```bash
+pg_ctl -D .postgres-data -l .postgres-data/server.log -o "-p 5433 -k /Users/saadmanzoor/Documents/StockFlow/.postgres-data" start
+```
+
+Stop it:
+
+```bash
+pg_ctl -D .postgres-data stop
+```
+
 ## Create Local Database
 
 ```bash
-createdb stockflow
+createdb -h localhost -p 5433 stockflow
 ```
 
 ## Create Tables
@@ -48,7 +74,7 @@ createdb stockflow
 From the repo root:
 
 ```bash
-psql -d stockflow -f supabase/create_tables_idempotent.sql
+psql -h localhost -p 5433 -d stockflow -f supabase/create_tables_idempotent.sql
 ```
 
 This creates all application, ingestion, learning, evaluation, and traceability tables.
@@ -68,7 +94,7 @@ artifacts/postgres/open-source-seed.sql
 ## Import Representative Open-Source Data
 
 ```bash
-psql -d stockflow -f artifacts/postgres/open-source-seed.sql
+psql -h localhost -p 5433 -d stockflow -f artifacts/postgres/open-source-seed.sql
 ```
 
 Expected initial representative data:
@@ -90,10 +116,10 @@ Connection settings:
 ```text
 Database: PostgreSQL
 Host: localhost
-Port: 5432
+Port: 5433
 Database: stockflow
-User: your Mac username
-Password: blank unless Postgres.app asks you to set one
+User: saadmanzoor
+Password: blank
 ```
 
 ## Useful Verification Query
