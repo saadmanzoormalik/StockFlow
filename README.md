@@ -128,6 +128,18 @@ For a smaller local test:
 node scripts/ingest-open-sources.mjs --limit=100
 ```
 
+## Rich SEC Ingestion For Agent Testing
+
+```bash
+npm run ingest-sec-rich
+```
+
+This pulls official SEC company facts for the AI infrastructure test universe, normalizes financial metrics into Postgres, generates stock scores/recommendations, writes an active app-state snapshot, and records data-quality checks.
+
+See:
+
+- `docs/rich-open-source-ingestion.md`
+
 ## Local Evaluation
 
 This can run with plain Node:
@@ -148,6 +160,7 @@ See:
 - `docs/deployment.md`
 - `docs/evaluation-framework.md`
 - `docs/data-ingestion.md`
+- `docs/rich-open-source-ingestion.md`
 - `docs/app-store-roadmap.md`
 - `docs/native-build.md`
 - `docs/notification-strategy.md`
